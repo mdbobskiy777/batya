@@ -1,0 +1,9 @@
+.header {
+    background-color: cornflowerblue;
+    grid-area: head;
+}
+
+.header img {
+    width: 40px;
+    margin: 10px;
+}

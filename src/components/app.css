@@ -9,32 +9,3 @@
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
 }
-
-.header {
-    background-color: cornflowerblue;
-    grid-area: head;
-}
-
-.header img {
-    width: 40px;
-    margin: 10px;
-}
-
-.navBar {
-    grid-area: navBar;
-    background-color: aquamarine;
-}
-
-.navBar div {
-    text-align: center
-}
-
-.profile {
-    grid-area: profile;
-    background-color: grey;
-}
-
-.profile img {
-    padding-left: 200px;
-    width: 60%;
-}
