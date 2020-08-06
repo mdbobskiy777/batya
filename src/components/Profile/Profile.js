@@ -1,14 +1,16 @@
 import React from 'react';
-import S from "./profile.module.css";
+import MyPosts from "./MyPosts/MyPosts";
 
 const Profile = () => {
 
     return (
-        <div className = {S.profile}>
+        <div>
             <div>
                 <img src={"https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"}/>
             </div>
-            <div>info</div>
+            <div>
+                <MyPosts/>
+            </div>
         </div>
     )
 }
