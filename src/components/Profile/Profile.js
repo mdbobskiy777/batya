@@ -1,16 +1,14 @@
 import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import S from "./profile.module.css"
 
-const Profile = () => {
+const Profile = (props) => {
 
     return (
-        <div>
-            <div>
-                <img src={"https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"}/>
-            </div>
-            <div>
-                <MyPosts/>
-            </div>
+        <div className={S.profileContent}>
+            <ProfileInfo info = {props.state.info}/>
+            <MyPosts postsList = {props.state.postsList} addPost={props.addPost}/>
         </div>
     )
 }

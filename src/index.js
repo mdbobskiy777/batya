@@ -1,14 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App'
 import * as serviceWorker from './serviceWorker';
+import {reRender} from "./render";
+import {state, addPost, sendMessage} from "./state";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
+reRender(state,addPost,sendMessage);
 serviceWorker.unregister();
