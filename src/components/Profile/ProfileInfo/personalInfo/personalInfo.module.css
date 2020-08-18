@@ -1,0 +1,16 @@
+.personalInfoContainer {
+    display: flex;
+
+}
+
+.avatarWrapper {
+    margin: 10px;
+
+}
+
+.avatarWrapper img {
+    width: 200px;
+}
+.infoList {
+    margin: 10px;
+}

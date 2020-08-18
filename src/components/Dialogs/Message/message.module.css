@@ -1,0 +1,12 @@
+.messageBox{
+    padding: 10px;
+    border-radius: 20px;
+    margin: 5px auto;
+    background-color:#e9ebee;
+    text-align: right;
+}
+.anotherAuthor{
+    background-color: lightblue;
+    text-align: left;
+
+}

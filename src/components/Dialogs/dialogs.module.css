@@ -1,0 +1,31 @@
+.dialogs {
+    background-color: white;
+    display: flex;
+    width: 100%;
+    border: 1px solid gray;
+
+}
+
+.dialogsList {
+    width: 25%;
+    padding: 10px;
+    border-right: 2px solid black;
+}
+
+.messages {
+    width: 75%;
+    padding: 10px;
+    /*    display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;*/
+
+}
+
+.newMessage {
+    padding: 5px;
+    text-align: right;
+    margin: 0 auto;
+}
+.newMessage  button{
+    margin: 5px;
+}
