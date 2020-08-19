@@ -15,19 +15,28 @@ const showMessages = (messages) => {
         return <Message key={message + 1} message={message}/>
     })
 }
+const showCurrentDialogValue = (currentDialog) => {
+    if (isNaN(currentDialog)) {
+        return 0;
+    } else {
+        return currentDialog;
+    }
+}
 
 const Dialogs = (props) => {
 
+    let currentDialog = window.location.pathname.substr(-1);
+
     let DialogsList = showDialogsList(props.state.dialogsList);
-    let ListMessages = showMessages(props.state.dialogsList[0].messages, );
-    let newPostRef = React.createRef();
+    let ListMessages = showMessages(props.state.dialogsList[showCurrentDialogValue(currentDialog)].messages);
 
     let sendMessage = () => {
-        let text = newPostRef.current.value;
-       props.sendMessage(text);s
+        props.sendMessage();
     }
 
-
+    let onNewMessageText = (e) => {
+        props.updateMessageText(e.target.value);
+    }
 
     return (
         <div className={S.dialogs}>
@@ -41,10 +50,10 @@ const Dialogs = (props) => {
                 </div>
                 <div className={S.newMessage}>
                     <div>
-                        <textarea  ref={newPostRef}>Write text...</textarea>
+                        <textarea onChange={onNewMessageText}  value={props.state.newMessageText}>Write text...</textarea>
                     </div>
                     <div>
-                        <button onClick = {sendMessage}>Send</button>
+                        <button onClick={sendMessage}>Send</button>
                     </div>
                 </div>
             </div>

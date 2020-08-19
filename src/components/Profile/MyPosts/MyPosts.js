@@ -18,7 +18,7 @@ const MyPosts = (props) => {
         <div className={S.myPostsContent}>
             <div>
                 My posts
-               <AddNewPostMenu addPost={props.addPost}/>
+               <AddNewPostMenu  newPostText = {props.newPostText}updatePostText={props.updatePostText} addPost={props.addPost}/>
                 {showPostList(props.postsList)}
             </div>
         </div>

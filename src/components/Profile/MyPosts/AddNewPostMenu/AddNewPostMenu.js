@@ -2,17 +2,18 @@ import React from "react";
 import S from "./addNewPostMenu.module.css";
 
 const AddNewPostMenu = (props) => {
-    let newPostText = React.createRef();
 
     let OnAddPost = () => {
-        let text = newPostText;
-        props.addPost(text.current.value);
+        props.addPost();
     }
 
+    let onUpdateNewPostText = (e) => {
+        props.updatePostText(e.target.value);
+    }
     return (
         <div>
             <div>
-                <textarea ref={newPostText}/>
+                <textarea onChange={onUpdateNewPostText} value={props.newPostText}/>
             </div>
             <div>
                 <button onClick={OnAddPost}>Add post</button>

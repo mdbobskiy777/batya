@@ -1,4 +1,5 @@
-import {reRender} from "./render"
+let render = () => {};
+
 
 export let state = {
     profilePage: {
@@ -15,7 +16,8 @@ export let state = {
             {message: "and this", likesNumber: "3"},
             {message: "soon i change it", likesNumber: "2"},
             {message: "VERY SOON", likesNumber: "45"}
-        ]
+        ],
+        newPostText: "Write post"
     },
     messagesPage: {
         dialogsList: [
@@ -42,18 +44,33 @@ export let state = {
                 avatarURL: "https://qph.fs.quoracdn.net/main-qimg-8d945bbaf167b063040eca16b0c59cd8.webp",
                 messages: []
             },
-        ]
+        ],
+        newMessageText: "Write text..."
     }
 }
-export const sendMessage = (text) => {
+
+export const sendMessage = () => {
     state.messagesPage.dialogsList[0].messages.push(
-        {author:"Me",text:text}
+        {author: "Me", text: state.messagesPage.newMessageText}
     )
-    reRender(state,sendMessage);
+    updateMessageText("");
 }
-export const addPost = (text) => {
+export const updateMessageText = (text) => {
+    state.messagesPage.newMessageText = text;
+    render({state, addPost, sendMessage, updatePostText, updateMessageText});
+
+}
+export const updatePostText = (text) => {
+    state.profilePage.newPostText = text;
+    render({state, addPost, sendMessage, updatePostText, updateMessageText});
+}
+export const addPost = () => {
     state.profilePage.postsList.push(
-        {message: text, likesNumber: "0"}
+        {message: state.profilePage.newPostText, likesNumber: "0"}
     )
-    reRender(state, addPost);
+    updatePostText("");
 }
+export const subscriber = observer => {
+    render = observer;
+}
+window.stato = state;

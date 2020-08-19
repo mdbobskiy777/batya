@@ -6,6 +6,7 @@ const checkAuthor = (author) => {
         return "";
     } else return S.anotherAuthor;
 }
+
 const Message = (props) => {
     return (
         <div className={S.messageBox + " " + checkAuthor(props.message.author)}>
