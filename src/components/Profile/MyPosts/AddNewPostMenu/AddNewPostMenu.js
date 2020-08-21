@@ -4,11 +4,13 @@ import S from "./addNewPostMenu.module.css";
 const AddNewPostMenu = (props) => {
 
     let OnAddPost = () => {
-        props.addPost();
+        let action = {type: "ADD_POST"};
+        props.dispatch(action);
     }
 
     let onUpdateNewPostText = (e) => {
-        props.updatePostText(e.target.value);
+        let action = {type: "UPDATE_POST_TEXT", text: e.target.value};
+        props.dispatch(action);
     }
     return (
         <div>

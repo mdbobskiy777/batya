@@ -27,15 +27,15 @@ const Dialogs = (props) => {
 
     let currentDialog = window.location.pathname.substr(-1);
 
-    let DialogsList = showDialogsList(props.state.dialogsList);
-    let ListMessages = showMessages(props.state.dialogsList[showCurrentDialogValue(currentDialog)].messages);
+    let DialogsList = showDialogsList(props.messagesPage.dialogsList);
+    let ListMessages = showMessages(props.messagesPage.dialogsList[showCurrentDialogValue(currentDialog)].messages);
 
     let sendMessage = () => {
-        props.sendMessage();
+        props.dispatch({type: "SEND_MESSAGE", dialogNumber:currentDialog});
     }
 
     let onNewMessageText = (e) => {
-        props.updateMessageText(e.target.value);
+        props.dispatch({type: "UPDATE_MESSAGE_TEXT", text: e.target.value});
     }
 
     return (
@@ -50,7 +50,7 @@ const Dialogs = (props) => {
                 </div>
                 <div className={S.newMessage}>
                     <div>
-                        <textarea onChange={onNewMessageText}  value={props.state.newMessageText}>Write text...</textarea>
+                        <textarea onChange={onNewMessageText}  value={props.messagesPage.newMessageText}/>
                     </div>
                     <div>
                         <button onClick={sendMessage}>Send</button>

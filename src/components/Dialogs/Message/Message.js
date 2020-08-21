@@ -3,7 +3,7 @@ import S from "./message.module.css";
 
 const checkAuthor = (author) => {
     if (author === "Me") {
-        return "";
+        return 0;
     } else return S.anotherAuthor;
 }
 

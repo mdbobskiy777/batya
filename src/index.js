@@ -1,18 +1,16 @@
 import * as serviceWorker from './serviceWorker';
-import {subscriber, state, addPost, sendMessage, updatePostText, updateMessageText} from "./state";
+import {store} from "./state";
 import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 
-
- let render = ({state,addPost,sendMessage, updatePostText,updateMessageText}) =>
-{
+let render = (state) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} addPost={addPost} sendMessage={sendMessage}
-                     updatePostText={updatePostText} updateMessageText={updateMessageText}/>
+                <App state={state} dispatch={store.dispatch.bind(store)}
+                />
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
@@ -20,7 +18,7 @@ import App from "./App";
 
 };
 
-render({state,addPost,sendMessage, updatePostText,updateMessageText});
-subscriber(render);
+render(store.getState());
+store.subscriber(render);
 
 serviceWorker.unregister();
