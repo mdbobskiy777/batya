@@ -1,14 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App'
 import * as serviceWorker from './serviceWorker';
+import {store} from "./store";
+import ReactDOM from "react-dom";
+import React from "react";
+import {BrowserRouter} from "react-router-dom";
+import App from "./App";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+let render = (state) => {
+    ReactDOM.render(
+        <React.StrictMode>
+            <BrowserRouter>
+                <App state={state} dispatch={store.dispatch.bind(store)}
+                />
+            </BrowserRouter>
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+
+};
+
+render(store.getState());
+store.subscriber(render);
 
 serviceWorker.unregister();

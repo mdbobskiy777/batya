@@ -1,0 +1,17 @@
+.appWrapper {
+    margin: 0 auto;
+    display: grid;
+    grid-template-areas:
+    "head head"
+    "content content";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 8fr;
+    grid-gap: 5px;
+    background-color: #e9ebee;
+}
+.appWrapperContent {
+    margin: 0 auto;
+    grid-area: content;
+    display: flex;
+    min-width: 1280px;
+}
