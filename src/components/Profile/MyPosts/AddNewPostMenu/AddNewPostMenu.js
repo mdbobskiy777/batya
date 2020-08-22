@@ -1,18 +1,23 @@
 import React from "react";
 import S from "./addNewPostMenu.module.css";
+import {add_post} from "../../../../redux/profile_reducer";
+import {update_post} from "../../../../redux/profile_reducer";
+
+
 
 const AddNewPostMenu = (props) => {
-    let newPostText = React.createRef();
 
     let OnAddPost = () => {
-        let text = newPostText;
-        props.addPost(text.current.value);
+        props.dispatch(add_post());
     }
 
+    let onUpdateNewPostText = (e) => {
+        props.dispatch(update_post(e.target.value));
+    }
     return (
         <div>
             <div>
-                <textarea ref={newPostText}/>
+                <textarea onChange={onUpdateNewPostText} value={props.newPostText}/>
             </div>
             <div>
                 <button onClick={OnAddPost}>Add post</button>

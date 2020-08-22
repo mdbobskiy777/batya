@@ -26,6 +26,11 @@
     text-align: right;
     margin: 0 auto;
 }
+.newMessage textarea {
+    resize: none;
+    width: 500px;
+}
+
 .newMessage  button{
     margin: 5px;
 }

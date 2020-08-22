@@ -2,6 +2,7 @@ import React from "react";
 import S from "./dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
+import {send_message, update_message_text} from "../../redux/dialogs_reducer";
 
 const showDialogsList = (dialogsList) => {
     return dialogsList.map((dialog) => {
@@ -15,19 +16,28 @@ const showMessages = (messages) => {
         return <Message key={message + 1} message={message}/>
     })
 }
+const showCurrentDialogValue = (currentDialog) => {
+    if (isNaN(currentDialog)) {
+        return 0;
+    } else {
+        return currentDialog;
+    }
+}
 
 const Dialogs = (props) => {
 
-    let DialogsList = showDialogsList(props.state.dialogsList);
-    let ListMessages = showMessages(props.state.dialogsList[0].messages, );
-    let newPostRef = React.createRef();
+    let currentDialog = window.location.pathname.substr(-1);
+
+    let DialogsList = showDialogsList(props.messagesPage.dialogsList);
+    let ListMessages = showMessages(props.messagesPage.dialogsList[showCurrentDialogValue(currentDialog)].messages);
 
     let sendMessage = () => {
-        let text = newPostRef.current.value;
-       props.sendMessage(text);s
+        props.dispatch(send_message(currentDialog));
     }
 
-
+    let onNewMessageText = (e) => {
+        props.dispatch(update_message_text(e.target.value));
+    }
 
     return (
         <div className={S.dialogs}>
@@ -41,10 +51,10 @@ const Dialogs = (props) => {
                 </div>
                 <div className={S.newMessage}>
                     <div>
-                        <textarea  ref={newPostRef}>Write text...</textarea>
+                        <textarea onChange={onNewMessageText}  value={props.messagesPage.newMessageText}/>
                     </div>
                     <div>
-                        <button onClick = {sendMessage}>Send</button>
+                        <button onClick={sendMessage}>Send</button>
                     </div>
                 </div>
             </div>
