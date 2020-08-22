@@ -1,7 +1,7 @@
 import React from "react";
 import S from "./addNewPostMenu.module.css";
-import {add_post} from "../../../../redux/profile_reducer";
-import {update_post} from "../../../../redux/profile_reducer";
+import {add_post} from "../../../../Reducers/profile_reducer";
+import {update_post} from "../../../../Reducers/profile_reducer";
 
 
 

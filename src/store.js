@@ -1,5 +1,5 @@
-import {profile_reducer} from "./redux/profile_reducer";
-import {dialogs_reducer} from "./redux/dialogs_reducer";
+import {profile_reducer} from "./Reducers/profile_reducer";
+import {dialogs_reducer} from "./Reducers/dialogs_reducer";
 
 export let store = {
      _state : {

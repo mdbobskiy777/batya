@@ -2,7 +2,7 @@ import React from "react";
 import S from "./dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import {send_message, update_message_text} from "../../redux/dialogs_reducer";
+import {send_message, update_message_text} from "../../Reducers/dialogs_reducer";
 
 const showDialogsList = (dialogsList) => {
     return dialogsList.map((dialog) => {

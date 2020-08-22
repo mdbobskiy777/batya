@@ -1,5 +1,5 @@
 import * as serviceWorker from './serviceWorker';
-import {store} from "./store";
+import store from "./store_redux";
 import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
@@ -19,6 +19,9 @@ let render = (state) => {
 };
 
 render(store.getState());
-store.subscriber(render);
+
+store.subscribe(()=>{
+    render(store.getState())
+});
 
 serviceWorker.unregister();
