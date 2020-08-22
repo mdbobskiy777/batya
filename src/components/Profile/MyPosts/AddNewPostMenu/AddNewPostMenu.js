@@ -1,16 +1,18 @@
 import React from "react";
 import S from "./addNewPostMenu.module.css";
+import {add_post} from "../../../../redux/profile_reducer";
+import {update_post} from "../../../../redux/profile_reducer";
+
+
 
 const AddNewPostMenu = (props) => {
 
     let OnAddPost = () => {
-        let action = {type: "ADD_POST"};
-        props.dispatch(action);
+        props.dispatch(add_post());
     }
 
     let onUpdateNewPostText = (e) => {
-        let action = {type: "UPDATE_POST_TEXT", text: e.target.value};
-        props.dispatch(action);
+        props.dispatch(update_post(e.target.value));
     }
     return (
         <div>

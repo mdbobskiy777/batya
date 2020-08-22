@@ -1,3 +1,6 @@
+import {profile_reducer} from "./redux/profile_reducer";
+import {dialogs_reducer} from "./redux/dialogs_reducer";
+
 export let store = {
      _state : {
         profilePage: {
@@ -49,56 +52,22 @@ export let store = {
 
      _callSubscriber(){
          console.log("322");
-         },
-    _sendMessage(dialogNumber){
-         if(isNaN(dialogNumber)) dialogNumber = 0;
-        this._state.messagesPage.dialogsList[dialogNumber].messages.push(
-            {author: "Me", text: this._state.messagesPage.newMessageText}
-        )
-/*
-        this._updateMessageText("");
-*/
-        this._state.messagesPage.newMessageText="";
-        this._callSubscriber(this._state);
-    },
-    _updateMessageText(text){
-        this._state.messagesPage.newMessageText = text;
-        this._callSubscriber(this._state);
-    },
-    _updatePostText(text){
-        this._state.profilePage.newPostText = text;
-        debugger
-        this._callSubscriber(this._state);
-    },
-    _addPost(){
-        this._state.profilePage.postsList.push(
-            {message: this._state.profilePage.newPostText, likesNumber: "0"}
-        );
-        this._updatePostText("");
-    },
+     },
 
      getState(){
         return this._state;
     },
+
     subscriber(observer){
         this._callSubscriber = observer;
      },
-    dispatch(action){
-         debugger
-         switch (action.type){
-             case "SEND_MESSAGE": this._sendMessage(action.dialogNumber);
-                break;
-             case "ADD_POST" : this._addPost();
-                 break;
 
-             case "UPDATE_MESSAGE_TEXT": this._updateMessageText(action.text);
-                 break;
-             case "UPDATE_POST_TEXT" : this._updatePostText(action.text)
-                 break;
-             default:
-                 break;
-         }
+    dispatch(action){
+         this._state.profilePage = profile_reducer(this._state.profilePage,action);
+         this._state.messagesPage= dialogs_reducer(this._state.messagesPage, action);
+         this._callSubscriber(this._state);
     }
 }
 
-window.stato = store.getState();
+/*
+window.stato = store.getState();*/

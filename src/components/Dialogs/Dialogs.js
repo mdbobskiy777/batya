@@ -2,6 +2,7 @@ import React from "react";
 import S from "./dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
+import {send_message, update_message_text} from "../../redux/dialogs_reducer";
 
 const showDialogsList = (dialogsList) => {
     return dialogsList.map((dialog) => {
@@ -31,11 +32,11 @@ const Dialogs = (props) => {
     let ListMessages = showMessages(props.messagesPage.dialogsList[showCurrentDialogValue(currentDialog)].messages);
 
     let sendMessage = () => {
-        props.dispatch({type: "SEND_MESSAGE", dialogNumber:currentDialog});
+        props.dispatch(send_message(currentDialog));
     }
 
     let onNewMessageText = (e) => {
-        props.dispatch({type: "UPDATE_MESSAGE_TEXT", text: e.target.value});
+        props.dispatch(update_message_text(e.target.value));
     }
 
     return (
