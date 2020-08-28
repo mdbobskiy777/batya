@@ -2,6 +2,7 @@ import React from "react";
 import S from "./myPosts.module.css";
 import Post from "./Post/Post";
 import AddNewPostMenu from "./AddNewPostMenu/AddNewPostMenu";
+import AddNewPostMenuContainer from "../AddNewPostMenuContainer";
 
 
 
@@ -18,8 +19,8 @@ const MyPosts = (props) => {
         <div className={S.myPostsContent}>
             <div>
                 My posts
-               <AddNewPostMenu  dispatch = {props.dispatch} newPostText ={props.newPostText}/>
-                {showPostList(props.postsList)}
+               <AddNewPostMenuContainer store = {props.store}/>
+                {showPostList(props.store.getState().profilePage.postsList)}
             </div>
         </div>
     );

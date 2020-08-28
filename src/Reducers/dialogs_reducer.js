@@ -11,7 +11,7 @@ let initialStore = {
                 {author: "Me", text: "Hello"},
                 {author: "Me", text: "How are you?"},
                 {author: "Жекич", text: "I am fine"},
-                {author: "Me", text: "It`s good"},
+                {author: "Me", text: "That`s good"},
                 {author: "Жекич", text: "Thanks"}]
         },
         {
@@ -27,7 +27,7 @@ let initialStore = {
             messages: []
         },
     ],
-        newMessageText: "Write text..."
+    newMessageText: ""
 }
 
 

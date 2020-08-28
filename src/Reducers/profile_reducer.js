@@ -16,7 +16,7 @@ let initialStore = {
         {message: "soon i change it", likesNumber: "2"},
         {message: "VERY SOON", likesNumber: "45"}
     ],
-        newPostText: "Write post..."
+        newPostText: ""
 }
 
 
@@ -38,7 +38,6 @@ let addPost = (state) => {
 }
 
 export const profile_reducer = (state = initialStore, action) => {
-    debugger
     switch (action.type) {
         case ADD_POST :
             return addPost(state);

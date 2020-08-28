@@ -8,11 +8,11 @@ import {update_post} from "../../../../Reducers/profile_reducer";
 const AddNewPostMenu = (props) => {
 
     let OnAddPost = () => {
-        props.dispatch(add_post());
+        props.addPost();
     }
 
     let onUpdateNewPostText = (e) => {
-        props.dispatch(update_post(e.target.value));
+        props.updateNewPostText(e.target.value);
     }
     return (
         <div>

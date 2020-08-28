@@ -4,7 +4,10 @@ import {profile_reducer} from "./Reducers/profile_reducer";
 
 let reducers = combineReducers({
     profilePage: profile_reducer,
-    messagesPage: dialogs_reducer
+    messagesPage: dialogs_reducer,
 })
+
 const store = createStore(reducers);
+window.stato = store.getState();
+
 export default store;

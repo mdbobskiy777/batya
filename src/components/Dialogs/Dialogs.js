@@ -2,7 +2,6 @@ import React from "react";
 import S from "./dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import {send_message, update_message_text} from "../../Reducers/dialogs_reducer";
 
 const showDialogsList = (dialogsList) => {
     return dialogsList.map((dialog) => {
@@ -11,14 +10,15 @@ const showDialogsList = (dialogsList) => {
     })
 }
 const showMessages = (messages) => {
-    if (!messages) return <div>There is no messages</div>;
+    debugger
+    if (!messages.length > 0) return <div>There is no messages</div>;
     return messages.map((message) => {
         return <Message key={message + 1} message={message}/>
     })
 }
 const showCurrentDialogValue = (currentDialog) => {
     if (isNaN(currentDialog)) {
-        return 0;
+        return 0
     } else {
         return currentDialog;
     }
@@ -27,34 +27,35 @@ const showCurrentDialogValue = (currentDialog) => {
 const Dialogs = (props) => {
 
     let currentDialog = window.location.pathname.substr(-1);
+    let dialogsList = showDialogsList(props.messagesPage.dialogsList);
+    debugger
+    let listMessages =
+        showMessages(props.messagesPage.dialogsList[showCurrentDialogValue(currentDialog)].messages);
 
-    let DialogsList = showDialogsList(props.messagesPage.dialogsList);
-    let ListMessages = showMessages(props.messagesPage.dialogsList[showCurrentDialogValue(currentDialog)].messages);
-
-    let sendMessage = () => {
-        props.dispatch(send_message(currentDialog));
+    let OnSendMessage = () => {
+        props.sendMessage(currentDialog);
     }
-
-    let onNewMessageText = (e) => {
-        props.dispatch(update_message_text(e.target.value));
+    let OnNewMessageText = (e) => {
+        debugger
+        props.newMessage(e.target.value);
     }
 
     return (
         <div className={S.dialogs}>
             <div className={S.dialogsList}>
-                {DialogsList}
+                {dialogsList}
             </div>
             <div className={S.messages}>
                 <div>
-                    {/*захардкодил*/}
-                    {ListMessages}
+                    {listMessages}
                 </div>
                 <div className={S.newMessage}>
                     <div>
-                        <textarea onChange={onNewMessageText}  value={props.messagesPage.newMessageText}/>
+                        <textarea onChange={OnNewMessageText} placeholder={"Write message..."}
+                                  value={props.messagesPage.newMessageText}/>
                     </div>
                     <div>
-                        <button onClick={sendMessage}>Send</button>
+                        <button onClick={OnSendMessage}>Send</button>
                     </div>
                 </div>
             </div>

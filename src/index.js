@@ -5,12 +5,11 @@ import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 
-let render = (state) => {
+let render = state => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} dispatch={store.dispatch.bind(store)}
-                />
+                <App store={state} />
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
@@ -18,10 +17,10 @@ let render = (state) => {
 
 };
 
-render(store.getState());
+render(store);
 
-store.subscribe(()=>{
-    render(store.getState())
+store.subscribe(() => {
+    render(store)
 });
 
 serviceWorker.unregister();
