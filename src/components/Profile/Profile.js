@@ -2,13 +2,22 @@ import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import S from "./profile.module.css"
+import StoreContext from "../../Store_Context";
 
 const Profile = (props) => {
-    debugger
     return (
         <div className={S.profileContent}>
-            <ProfileInfo info = {props.store.getState().profilePage.info}/>
-            <MyPosts store = {props.store} />
+            <StoreContext.Consumer>
+                {
+                    (store) =>{
+                        return (<div>
+                            <ProfileInfo info={store.getState().profilePage.info}/>
+                            <MyPosts/>
+                        </div>)
+                    }
+                }
+            </StoreContext.Consumer>
+
         </div>
     )
 }

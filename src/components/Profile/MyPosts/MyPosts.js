@@ -1,16 +1,12 @@
 import React from "react";
 import S from "./myPosts.module.css";
 import Post from "./Post/Post";
-import AddNewPostMenu from "./AddNewPostMenu/AddNewPostMenu";
 import AddNewPostMenuContainer from "../AddNewPostMenuContainer";
-
-
-
-// let newPostLost = postsList.map(post => <Post message={post.message} likesNumber={post.likesNumber}/>);
+import StoreContext from "../../../Store_Context";
 
 const showPostList = (postsList) => {
     return postsList.map(post =>
-        <Post key = {post.message+1} message={post.message} likesNumber={post.likesNumber}/>
+        <Post key={post.message + 1} message={post.message} likesNumber={post.likesNumber}/>
     )
 }
 
@@ -19,8 +15,17 @@ const MyPosts = (props) => {
         <div className={S.myPostsContent}>
             <div>
                 My posts
-               <AddNewPostMenuContainer store = {props.store}/>
-                {showPostList(props.store.getState().profilePage.postsList)}
+                <StoreContext.Consumer>
+                    {
+                        (store) => {
+                            return (<div>
+                                <AddNewPostMenuContainer store={store}/>
+                                {showPostList(store.getState().profilePage.postsList)}
+                            </div>)
+                        }
+                    }
+                </StoreContext.Consumer>
+
             </div>
         </div>
     );

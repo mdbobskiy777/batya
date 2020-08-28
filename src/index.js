@@ -4,12 +4,15 @@ import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
+import StoreContext from "./Store_Context";
 
-let render = state => {
+let render = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={state} />
+                <StoreContext.Provider value = {store}>
+                    <App/>
+                </StoreContext.Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
@@ -17,10 +20,10 @@ let render = state => {
 
 };
 
-render(store);
+render();
 
 store.subscribe(() => {
-    render(store)
+    render()
 });
 
 serviceWorker.unregister();

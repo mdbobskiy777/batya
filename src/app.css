@@ -1,5 +1,4 @@
 .appWrapper {
-    margin: 0 auto;
     display: grid;
     grid-template-areas:
     "head head"
@@ -10,7 +9,6 @@
 }
 .appWrapperContent {
     margin: 0 auto;
-    margin-left: 10px;
     grid-area: content;
     display: flex;
     min-width: 1280px;
