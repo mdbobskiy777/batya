@@ -31,31 +31,29 @@ let initialStore = {
 }
 
 
-export let send_message = (dialogNumber) =>({type:SEND_MESSAGE, dialogNumber:dialogNumber})
-export let update_message_text= (text) => ({type:UPDATE_MESSAGE_TEXT,text:text})
+export let send_message = (dialogNumber) => ({type: SEND_MESSAGE, dialogNumber: dialogNumber})
+export let update_message_text = (text) => ({type: UPDATE_MESSAGE_TEXT, text: text})
 
 
-let sendMessage = (state,dialogNumber) => {
-    let newState = state;
+let sendMessage = (state, dialogNumber) => {
     if (isNaN(dialogNumber)) dialogNumber = 0;
+
+    let newState = {...state};
+    newState.dialogsList[dialogNumber].messages = [...state.dialogsList[dialogNumber].messages];
     newState.dialogsList[dialogNumber].messages.push(
         {author: "Me", text: newState.newMessageText}
     )
-    return  updateMessageText(newState,"");
+    return updateMessageText(newState, "");
 
 }
 
-let updateMessageText = (state,text) => {
-    let newState = state;
-    newState.newMessageText = text;
-    return newState;
-}
+let updateMessageText = (state, text) => {return{...state,newMessageText :text };}
 
-export const dialogs_reducer = (state=initialStore, action) => {
+export const dialogs_reducer = (state = initialStore, action) => {
 
     switch (action.type) {
         case SEND_MESSAGE:
-            return sendMessage(state,action.dialogNumber);
+            return sendMessage(state, action.dialogNumber);
         case UPDATE_MESSAGE_TEXT:
             return updateMessageText(state, action.text);
         default:

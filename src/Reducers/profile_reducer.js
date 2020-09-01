@@ -23,13 +23,11 @@ let initialStore = {
 export let add_post = () => ({type: ADD_POST})
 export let update_post = (text) => ({type: UPDATE_POST_TEXT, text: text})
 
-let updatePostText = (state, text) => {
-    let newState = state;
-    newState.newPostText = text;
-    return newState;
-}
+let updatePostText = (state, text) => {return {...state, newPostText : text};}
+
 let addPost = (state) => {
-    let newState = state;
+    let newState = {...state};
+    newState.postsList = [ ...state.postsList];
     newState.postsList.push(
         {message: newState.newPostText, likesNumber: "0"}
     );

@@ -50,7 +50,7 @@ export let store = {
         }
     },
 
-     _callSubscriber(){
+     _callSubscribe(){
          console.log("322");
      },
 
@@ -58,14 +58,14 @@ export let store = {
         return this._state;
     },
 
-    subscriber(observer){
-        this._callSubscriber = observer;
+    subscribe(observer){
+        this._callSubscribe = observer;
      },
 
     dispatch(action){
          this._state.profilePage = profile_reducer(this._state.profilePage,action);
          this._state.messagesPage= dialogs_reducer(this._state.messagesPage, action);
-         this._callSubscriber(this._state);
+         this._callSubscribe(this._state);
     }
 }
 

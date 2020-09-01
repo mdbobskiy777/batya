@@ -2,7 +2,6 @@ import React from "react";
 import S from "./myPosts.module.css";
 import Post from "./Post/Post";
 import AddNewPostMenuContainer from "../AddNewPostMenuContainer";
-import StoreContext from "../../../Store_Context";
 
 const showPostList = (postsList) => {
     return postsList.map(post =>
@@ -15,16 +14,8 @@ const MyPosts = (props) => {
         <div className={S.myPostsContent}>
             <div>
                 My posts
-                <StoreContext.Consumer>
-                    {
-                        (store) => {
-                            return (<div>
-                                <AddNewPostMenuContainer store={store}/>
-                                {showPostList(store.getState().profilePage.postsList)}
-                            </div>)
-                        }
-                    }
-                </StoreContext.Consumer>
+                <AddNewPostMenuContainer/>
+                {showPostList(props.postsList)}
 
             </div>
         </div>

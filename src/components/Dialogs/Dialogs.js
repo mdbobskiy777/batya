@@ -3,34 +3,35 @@ import S from "./dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 
-const showDialogsList = (dialogsList) => {
-    return dialogsList.map((dialog) => {
-        return <Dialog key={dialog.dialogId} dialogName={dialog.dialogName}
-                       dialogId={dialog.dialogId} avatarURL={dialog.avatarURL}/>
-    })
-}
-const showMessages = (messages) => {
-    debugger
-    if (!messages.length > 0) return <div>There is no messages</div>;
-    return messages.map((message) => {
-        return <Message key={message + 1} message={message}/>
-    })
-}
-const showCurrentDialogValue = (currentDialog) => {
-    if (isNaN(currentDialog)) {
-        return 0
-    } else {
-        return currentDialog;
-    }
-}
 
 const Dialogs = (props) => {
+    var listMessages;
+    const showDialogsList = (dialogsList) => {
+        return dialogsList.map((dialog) => {
+            return <Dialog showMessages={showMessages.bind(this)} dialogName={dialog.dialogName}
+                           dialogId={dialog.dialogId} avatarURL={dialog.avatarURL}/>
+        })
+    }
+
+
+    const showMessages = (dialogID) => {
+        debugger
+        let messages = props.messagesPage.dialogsList[dialogID].messages;
+
+        if (!messages.length > 0) {
+            listMessages = <div>There is no messages</div>
+        } else {
+            listMessages = messages.map((message) => <Message key={message + 1} message={message}/>)
+        }
+    }
 
     let currentDialog = window.location.pathname.substr(-1);
-    let dialogsList = showDialogsList(props.messagesPage.dialogsList);
     debugger
-    let listMessages =
-        showMessages(props.messagesPage.dialogsList[showCurrentDialogValue(currentDialog)].messages);
+    let dialogsList = showDialogsList(props.messagesPage.dialogsList);
+
+    /* let listMessages =
+         showMessages(props.messagesPage.dialogsList[showCurrentDialogValue(currentDialog)].messages);
+ */
 
     let OnSendMessage = () => {
         props.sendMessage(currentDialog);

@@ -1,19 +1,17 @@
 import React from "react";
 import AddNewPostMenu from "./MyPosts/AddNewPostMenu/AddNewPostMenu";
 import {add_post, update_post} from "../../Reducers/profile_reducer";
+import {connect} from "react-redux";
 
-const AddNewPostMenuContainer = (props) => {
-
-    let addPost = () => {
-        props.store.dispatch(add_post());
+let mapStateToProps = (state) => ({newPostText: state.profilePage.newPostText});
+let mapDispatchToProps = (dispatch) => ({
+    addPost: () => {
+        dispatch(add_post())
+    },
+    updateNewPostText: (text)=> {
+        dispatch(update_post(text));
     }
+})
 
-    let updateNewPostText = (text) => {
-        props.store.dispatch(update_post(text));
-    }
-    return (
-       <AddNewPostMenu newPostText ={props.store.getState().profilePage.newPostText} addPost = {addPost} updateNewPostText = {updateNewPostText} />
-    )
-
-}
+const AddNewPostMenuContainer = connect(mapStateToProps, mapDispatchToProps)(AddNewPostMenu);
 export default AddNewPostMenuContainer;
