@@ -18,7 +18,7 @@ const App = (props) => {
                 <NavBar/>
                 <Route path="/profile" render={() =>
                     <Profile/>}/>
-                <Route path="/dialogs" render={() =>
+                <Route path="/dialogs/" render={() =>
                     <DialogsContainer/>}/>
                 <Route path="/music" render={() => <Music/>}/>
                 <Route path="/news" render={() => <News/>}/>

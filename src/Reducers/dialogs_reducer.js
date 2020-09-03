@@ -1,5 +1,6 @@
 const SEND_MESSAGE = "SEND_MESSAGE";
 const UPDATE_MESSAGE_TEXT = "UPDATE_MESSAGE_TEXT";
+const CHANGE_DIALOG = "CHANGE_DIALOG";
 
 let initialStore = {
     dialogsList: [
@@ -27,16 +28,30 @@ let initialStore = {
             messages: []
         },
     ],
+    currentDialog: 0,
     newMessageText: ""
 }
 
 
 export let send_message = (dialogNumber) => ({type: SEND_MESSAGE, dialogNumber: dialogNumber})
 export let update_message_text = (text) => ({type: UPDATE_MESSAGE_TEXT, text: text})
+export let change_current_dialog = (dialogNumber) => ({type:CHANGE_DIALOG,dialogNumber:dialogNumber})
 
+let changeCurrentDialog = (state, dialogNumber) => {
+    debugger
+    let newState = {...state}
+    if (!isNaN(dialogNumber)) {
+        newState.currentDialog = dialogNumber;
+    }else{
+        newState.currentDialog = 0;
+    }
+    return newState;
+}
 
 let sendMessage = (state, dialogNumber) => {
+/*
     if (isNaN(dialogNumber)) dialogNumber = 0;
+*/
 
     let newState = {...state};
     newState.dialogsList[dialogNumber].messages = [...state.dialogsList[dialogNumber].messages];
@@ -56,6 +71,8 @@ export const dialogs_reducer = (state = initialStore, action) => {
             return sendMessage(state, action.dialogNumber);
         case UPDATE_MESSAGE_TEXT:
             return updateMessageText(state, action.text);
+        case CHANGE_DIALOG:
+            return changeCurrentDialog(state,action.dialogNumber)
         default:
             return state;
     }

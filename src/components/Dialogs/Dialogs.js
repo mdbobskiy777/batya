@@ -3,41 +3,38 @@ import S from "./dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 
-
 const Dialogs = (props) => {
-    var listMessages;
+    debugger
+
     const showDialogsList = (dialogsList) => {
         return dialogsList.map((dialog) => {
-            return <Dialog showMessages={showMessages.bind(this)} dialogName={dialog.dialogName}
+            return <Dialog changeDialog={onChangeDialog.bind(this)} dialogName={dialog.dialogName}
                            dialogId={dialog.dialogId} avatarURL={dialog.avatarURL}/>
         })
     }
 
 
-    const showMessages = (dialogID) => {
+    let onChangeDialog = (dialogID) => {
+        props.changeCurrentDialog(dialogID);
+    }
+    let showMessages = (dialogID) => {
         debugger
-        let messages = props.messagesPage.dialogsList[dialogID].messages;
 
+        let messages = props.messagesPage.dialogsList[dialogID].messages;
         if (!messages.length > 0) {
-            listMessages = <div>There is no messages</div>
+            return  <div>There is no messages</div>
         } else {
-            listMessages = messages.map((message) => <Message key={message + 1} message={message}/>)
+            return messages.map((message) => <Message key={message + 1} message={message}/>)
         }
     }
-
-    let currentDialog = window.location.pathname.substr(-1);
     debugger
     let dialogsList = showDialogsList(props.messagesPage.dialogsList);
-
-    /* let listMessages =
-         showMessages(props.messagesPage.dialogsList[showCurrentDialogValue(currentDialog)].messages);
- */
+    let listMessages = showMessages(props.messagesPage.currentDialog);
 
     let OnSendMessage = () => {
-        props.sendMessage(currentDialog);
+        props.sendMessage(props.messagesPage.currentDialog);
     }
     let OnNewMessageText = (e) => {
-        debugger
         props.newMessage(e.target.value);
     }
 
