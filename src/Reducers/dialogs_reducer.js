@@ -28,7 +28,7 @@ let initialStore = {
             messages: []
         },
     ],
-    currentDialog: 0,
+    currentDialog: "prekol",
     newMessageText: ""
 }
 
@@ -49,6 +49,7 @@ let changeCurrentDialog = (state, dialogNumber) => {
 }
 
 let sendMessage = (state, dialogNumber) => {
+    debugger
 /*
     if (isNaN(dialogNumber)) dialogNumber = 0;
 */

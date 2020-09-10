@@ -7,10 +7,12 @@ const Dialogs = (props) => {
     debugger
 
     const showDialogsList = (dialogsList) => {
-        return dialogsList.map((dialog) => {
-            return <Dialog changeDialog={onChangeDialog.bind(this)} dialogName={dialog.dialogName}
-                           dialogId={dialog.dialogId} avatarURL={dialog.avatarURL}/>
-        })
+        return (
+                dialogsList.map((dialog) => {
+                    return <Dialog  changeDialog={onChangeDialog.bind(this)} dialogName={dialog.dialogName}
+                                   dialogId={dialog.dialogId} avatarURL={dialog.avatarURL}/>
+                })
+        )
     }
 
 
@@ -19,13 +21,18 @@ const Dialogs = (props) => {
     }
     let showMessages = (dialogID) => {
         debugger
-
-        let messages = props.messagesPage.dialogsList[dialogID].messages;
-        if (!messages.length > 0) {
-            return  <div>There is no messages</div>
+        let messages
+        if (isNaN(dialogID)) {
+            return <div>no dialog chosen</div>
         } else {
-            return messages.map((message) => <Message key={message + 1} message={message}/>)
+            messages = props.messagesPage.dialogsList[dialogID].messages;
+            if (!messages.length > 0) {
+                return <div>There is no messages</div>
+            } else {
+                return messages.map((message) => <Message key={message + 1} message={message}/>)
+            }
         }
+
     }
     debugger
     let dialogsList = showDialogsList(props.messagesPage.dialogsList);
