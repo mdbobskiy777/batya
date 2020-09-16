@@ -1,8 +1,64 @@
-import React from "react";
+import React, {Component} from "react";
 import Users from "./Users";
 import {connect} from "react-redux";
 import {changeCurrentPageAC, followAC, setTotalUsersAC, setUsersAC, unfollowAC} from "../../Reducers/users_reducer";
+import * as axios from "axios";
 
+class UsersContainer extends Component {
+
+    constructor(props) {
+        super(props);
+        this.setUsers = this.setUsers.bind(this);
+        this.setTotalUsers = this.setTotalUsers.bind(this);
+        this.changePage = this.changePage.bind(this);
+
+    }
+
+    setUsers(users) {
+        this.props.onSetUsers(users);
+    }
+
+    setTotalUsers(totalUsers) {
+        this.props.onSetTotalUsers(totalUsers);
+    }
+    changePage(pageNumber){
+        this.props.onChangeCurrentPage(pageNumber);
+
+        axios
+            .get(`http://localhost:3001/users?pageNumber=${pageNumber}&count=${this.props.usersPage.pageSize}`)
+            .then(response => {
+                debugger
+                let users = response.data.users
+                let totalUsers = response.data.totalCount
+                this.setUsers(users);
+                debugger
+                this.setTotalUsers(totalUsers);
+            });
+    }
+    componentWillMount() {
+        axios
+            .get(`http://localhost:3001/users?pageNumber=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
+            .then(response => {
+                debugger
+                let users = response.data.users
+                let totalUsers = response.data.totalCount
+                this.setUsers(users);
+                debugger
+                this.setTotalUsers(totalUsers);
+            });
+    }
+
+
+    render() {
+        return <Users
+            usersPage = {this.props.usersPage}
+            OnFollow = {this.props.OnFollow}
+            OnUnfollow = {this.props.OnUnfollow}
+            setUsers = {this.setUsers}
+            setTotalUsers = {this.setTotalUsers}
+            changePage = {this.changePage}/>
+    }
+}
 
 let setStateToProps = (state) =>({usersPage:state.usersPage})
 
@@ -24,4 +80,4 @@ let setDispatchToProps = (dispatch) =>({
     }
 })
 
-export default connect(setStateToProps, setDispatchToProps)(Users)
+export default connect(setStateToProps, setDispatchToProps)(UsersContainer)
