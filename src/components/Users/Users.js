@@ -2,30 +2,59 @@ import React, {Component} from "react";
 import Style from "./users.module.css"
 import * as axios from "axios";
 
-
 class Users extends Component {
 
     constructor(props) {
         super(props);
         this.setUsers = this.setUsers.bind(this);
+        this.setTotalUsers = this.setTotalUsers.bind(this);
+        this.changePage = this.changePage.bind(this);
+
     }
 
-    setUsers(users){
+    setUsers(users) {
         this.props.onSetUsers(users);
-}
-    componentWillMount() {
+    }
+
+    setTotalUsers(totalUsers) {
+        this.props.onSetTotalUsers(totalUsers);
+    }
+    changePage(pageNumber){
+        this.props.onChangeCurrentPage(pageNumber);
+
         axios
-            .get('http://localhost:3001/')
+            .get(`http://localhost:3001/users?pageNumber=${pageNumber}&count=${this.props.usersPage.pageSize}`)
             .then(response => {
-                let users = response.data.users
                 debugger
+                let users = response.data.users
+                let totalUsers = response.data.totalCount
                 this.setUsers(users);
+                debugger
+                this.setTotalUsers(totalUsers);
             });
     }
+    componentWillMount() {
+        axios
+            .get(`http://localhost:3001/users?pageNumber=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
+            .then(response => {
+                debugger
+                let users = response.data.users
+                let totalUsers = response.data.totalCount
+                this.setUsers(users);
+                debugger
+                this.setTotalUsers(totalUsers);
+            });
+    }
+
 
     render() {
         debugger
         return (<div>
+            <div className={Style.numbers}>
+                {[...Array(this.props.usersPage.totalUsers)].map((el, i) => {
+                    return <div onClick = {()=>{this.changePage(i+1)}} className={(this.props.usersPage.currentPage === i + 1) && Style.currentPage}>{i + 1}</div>
+                })}
+            </div>
             {this.props.usersPage.users.map(u => <div>
                 <div>
                     <div className={Style.imageContainer}>

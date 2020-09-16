@@ -1,3 +1,9 @@
 .imageContainer img{
     width: 100px;
 }
+.currentPage{
+    font-weight: bold;
+}
+.numbers{
+    display: flex;
+}
