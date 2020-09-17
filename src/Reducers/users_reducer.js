@@ -3,13 +3,14 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_TOTAL_USERS = "SET_TOTAL_USERS";
 const CHANGE_CURRENT_PAGE = "CHANGE_CURRENT_PAGE";
-
+const CHANGE_LOAD_STATUS = "CHANGE_LOAD_STATUS"
 
 let initial_store = {
     users: [],
     totalUsers: 0,
     pageSize: 3,
-    currentPage: 1
+    currentPage: 1,
+    isLoading:false
 }
 
 let setTotalUsers = (state, totalUsers) =>{
@@ -18,6 +19,10 @@ let setTotalUsers = (state, totalUsers) =>{
     return newState;
 }
 
+let changeLoad = (state, isLoading) => {
+    let newState = {...state,isLoading: isLoading}
+    return newState;
+}
 let changeCurrentPage = (state, pageNumber) =>{
     debugger
     let newState = {...state,currentPage: pageNumber}
@@ -55,6 +60,7 @@ export let unfollowAC = userID => ({type: UNFOLLOW, userID: userID})
 export let setUsersAC = users => ({type: SET_USERS, users: users})
 export let setTotalUsersAC = totalUsers => ({type: SET_TOTAL_USERS, totalUsers})
 export let changeCurrentPageAC = pageNumber => ({type:CHANGE_CURRENT_PAGE, pageNumber})
+export let changeLoadAC = isLoading => ({type:CHANGE_LOAD_STATUS, isLoading})
 
 export let users_reducer = (state = initial_store, action) => {
 
@@ -69,6 +75,8 @@ export let users_reducer = (state = initial_store, action) => {
             return setTotalUsers(state, action.totalUsers)
         case CHANGE_CURRENT_PAGE:
             return changeCurrentPage(state,action.pageNumber)
+        case CHANGE_LOAD_STATUS:
+            return changeLoad(state,action.isLoading)
         default:
             return state;
     }

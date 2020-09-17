@@ -4,7 +4,7 @@ import Style from "./users.module.css"
 
 const Users = (props) => {
     debugger
-    return (<div>
+    return <div>
         <div className={Style.numbers}>
             {[...Array(props.usersPage.totalUsers)].map((el, i) => {
                 return <div onClick={() => {
@@ -38,6 +38,6 @@ const Users = (props) => {
                     <button onClick={() => props.OnFollow(u.id)}>Follow</button>}
             </div>
         </div>)}
-    </div>)
+    </div>
 }
 export default Users
