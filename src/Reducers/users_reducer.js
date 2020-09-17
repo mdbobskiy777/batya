@@ -13,23 +13,23 @@ let initial_store = {
     isLoading:false
 }
 
-let setTotalUsers = (state, totalUsers) =>{
+let _setTotalUsers = (state, totalUsers) =>{
     debugger
     let newState = {...state,totalUsers: totalUsers}
     return newState;
 }
 
-let changeLoad = (state, isLoading) => {
+let _changeLoad = (state, isLoading) => {
     let newState = {...state,isLoading: isLoading}
     return newState;
 }
-let changeCurrentPage = (state, pageNumber) =>{
+let _changeCurrentPage = (state, pageNumber) =>{
     debugger
     let newState = {...state,currentPage: pageNumber}
     return newState;
 }
 
-let follow = (state, userID) => {
+let _follow = (state, userID) => {
     let newState = {...state}
     newState.users = newState.users.map(u => {
         if (u.id === userID) {
@@ -40,7 +40,7 @@ let follow = (state, userID) => {
 }
 
 
-let unfollow = (state, userID) => {
+let _unfollow = (state, userID) => {
     let newState = {...state}
     newState.users = newState.users.map(u => {
         if (u.id === userID) {
@@ -49,34 +49,34 @@ let unfollow = (state, userID) => {
     })
     return newState
 }
-let setUsers = (state,users) => {
+let _setUsers = (state,users) => {
     debugger
     let newState = {...state,users: [...users]}
     return newState;
 }
 
-export let followAC = userID => ({type: FOLLOW, userID: userID})
-export let unfollowAC = userID => ({type: UNFOLLOW, userID: userID})
-export let setUsersAC = users => ({type: SET_USERS, users: users})
-export let setTotalUsersAC = totalUsers => ({type: SET_TOTAL_USERS, totalUsers})
-export let changeCurrentPageAC = pageNumber => ({type:CHANGE_CURRENT_PAGE, pageNumber})
-export let changeLoadAC = isLoading => ({type:CHANGE_LOAD_STATUS, isLoading})
+export let follow = userID => ({type: FOLLOW, userID: userID})
+export let unfollow = userID => ({type: UNFOLLOW, userID: userID})
+export let setUsers = users => ({type: SET_USERS, users: users})
+export let setTotalUsers= totalUsers => ({type: SET_TOTAL_USERS, totalUsers})
+export let changeCurrentPage = pageNumber => ({type:CHANGE_CURRENT_PAGE, pageNumber})
+export let changeLoad = isLoading => ({type:CHANGE_LOAD_STATUS, isLoading})
 
 export let users_reducer = (state = initial_store, action) => {
 
     switch (action.type) {
         case FOLLOW:
-            return follow(state, action.userID);
+            return _follow(state, action.userID);
         case UNFOLLOW:
-            return unfollow(state, action.userID);
+            return _unfollow(state, action.userID);
         case SET_USERS:
-            return setUsers(state,action.users)
+            return _setUsers(state,action.users)
         case SET_TOTAL_USERS:
-            return setTotalUsers(state, action.totalUsers)
+            return _setTotalUsers(state, action.totalUsers)
         case CHANGE_CURRENT_PAGE:
-            return changeCurrentPage(state,action.pageNumber)
+            return _changeCurrentPage(state,action.pageNumber)
         case CHANGE_LOAD_STATUS:
-            return changeLoad(state,action.isLoading)
+            return _changeLoad(state,action.isLoading)
         default:
             return state;
     }

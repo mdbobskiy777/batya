@@ -2,12 +2,12 @@ import React, {Component} from "react";
 import Users from "./Users";
 import Loader from "../common/Loader";
 import {
-    changeCurrentPageAC,
-    changeLoadAC,
-    followAC,
-    setTotalUsersAC,
-    setUsersAC,
-    unfollowAC
+    changeCurrentPage,
+    changeLoad,
+    follow,
+    setTotalUsers,
+    setUsers,
+    unfollow
 } from "../../Reducers/users_reducer";
 import {connect} from "react-redux";
 import * as axios from "axios";
@@ -23,21 +23,21 @@ class UsersContainer extends Component {
     }
 
     setUsers(users) {
-        this.props.onSetUsers(users);
+        this.props.setUsers(users);
     }
 
     setTotalUsers(totalUsers) {
-        this.props.onSetTotalUsers(totalUsers);
+        this.props.setTotalUsers(totalUsers);
     }
 
     changePage(pageNumber) {
-        this.props.onChangeCurrentPage(pageNumber);
-        this.props.onChangeLoadStatus(true);
+        this.props.changeCurrentPage(pageNumber);
+        this.props.changeLoad(true);
         axios
             .get(`http://localhost:3001/users?pageNumber=${pageNumber}&count=${this.props.usersPage.pageSize}`)
             .then(response => {
                 debugger
-                this.props.onChangeLoadStatus(false);
+                this.props.changeLoad(false);
                 let users = response.data.users
                 let totalUsers = response.data.totalCount
                 this.setUsers(users);
@@ -47,12 +47,12 @@ class UsersContainer extends Component {
     }
 
     componentWillMount() {
-        this.props.onChangeLoadStatus(true);
+        this.props.changeLoad(true);
         axios
             .get(`http://localhost:3001/users?pageNumber=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
             .then(response => {
                 debugger
-                this.props.onChangeLoadStatus(false);
+                this.props.changeLoad(false);
                 let users = response.data.users
                 let totalUsers = response.data.totalCount
                 this.setUsers(users);
@@ -71,8 +71,8 @@ class UsersContainer extends Component {
                 <div>
                     <Users
                         usersPage={this.props.usersPage}
-                        OnFollow={this.props.OnFollow}
-                        OnUnfollow={this.props.OnUnfollow}
+                        OnFollow={this.props.follow}
+                        OnUnfollow={this.props.unfollow}
                         setUsers={this.setUsers}
                         setTotalUsers={this.setTotalUsers}
                         changePage={this.changePage}/>
@@ -84,25 +84,13 @@ class UsersContainer extends Component {
 
 let setStateToProps = (state) => ({usersPage: state.usersPage})
 
-let setDispatchToProps = (dispatch) => ({
-    OnFollow: userID => {
-        dispatch(followAC(userID))
-    },
-    OnUnfollow: userID => {
-        dispatch(unfollowAC(userID))
-    },
-    onSetUsers: (users) => {
-        dispatch(setUsersAC(users))
-    },
-    onSetTotalUsers: (totalUsers) => {
-        dispatch(setTotalUsersAC(totalUsers))
-    },
-    onChangeCurrentPage: pageNumber => {
-        dispatch(changeCurrentPageAC(pageNumber))
-    },
-    onChangeLoadStatus: isLoading => {
-        dispatch(changeLoadAC(isLoading))
-    }
-})
+ let actionCreators = {
+    follow,
+     unfollow,
+     setUsers,
+     setTotalUsers,
+     changeCurrentPage,
+     changeLoad
+ }
 
-export default connect(setStateToProps, setDispatchToProps)(UsersContainer)
+export default connect(setStateToProps, actionCreators)(UsersContainer)
