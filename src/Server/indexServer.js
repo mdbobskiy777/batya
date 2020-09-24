@@ -81,8 +81,173 @@ let users = [
     }
 ]
 
+let usersPages = [
+    {
+        info : [
+            {name: "Eugene"},
+            {surname: "Bober"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    },
+    {
+        info : [
+            {name: "Vladimir"},
+            {surname: "Melnichuk"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    },
+    {
+        info : [
+            {name: "Daniil"},
+            {surname: "Bondar"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    },
+    {
+        info : [
+            {name: "Bogdan"},
+            {surname: "Golubets"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    },
+    {
+        info : [
+            {name: "Andre"},
+            {surname: "Kaminski"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    },
+    {
+        info : [
+            {name: "Ilya"},
+            {surname: "Dorogin"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    },
+    {
+        info : [
+            {name: "Pavel"},
+            {surname: "Cherkov"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    },
+    {
+        info : [
+            {name: "Nikolay"},
+            {surname: "Bogdanenko"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    },
+    {
+        info : [
+            {name: "Andrey"},
+            {surname: "Bilas"},
+            {sex: "male"},
+            {age: "23"},
+            {phone: "+380932731283"}
+        ],
+        postsList : [
+            {message: "Hi! this`s my hardcode post!", likesNumber: "23"},
+            {message: "This too", likesNumber: "12"},
+            {message: "and this", likesNumber: "3"},
+            {message: "soon i change it", likesNumber: "2"},
+            {message: "VERY SOON", likesNumber: "45"}
+        ],
+        newPostText  : ""
+    }
+]
 
 let totalCount = users.length
+
+let getProfilePage = (profilesPages, id) =>{
+    let neadedPage;
+    profilesPages.map((el,i)=>{
+        if (id===i) {
+            neadedPage =  el
+        }
+    })
+    return neadedPage;
+}
 
 let sendUsers = (users, number) => {
 
@@ -128,6 +293,14 @@ app.get('/users', (request, response) => {
     response.send({users:filteredUsers, totalCount:total})
 
 })
+
+app.get('/profile', (request, response) => {
+    console.log(request.query.id);
+    let profile = getProfilePage(usersPages,Number(request.query.id))
+    console.log(profile)
+    response.send({profile})
+})
+
 app.listen(port, (err) => {
     if (err) {
         return console.log('something bad happened', err)

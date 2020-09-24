@@ -46,7 +46,7 @@ class UsersContainer extends Component {
             });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.changeLoad(true);
         axios
             .get(`http://localhost:3001/users?pageNumber=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
