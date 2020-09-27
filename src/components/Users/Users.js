@@ -1,6 +1,7 @@
 import React from "react";
 import Style from "./users.module.css"
 import {NavLink} from "react-router-dom";
+import * as axios from "axios";
 
 
 const Users = (props) => {
@@ -16,7 +17,7 @@ const Users = (props) => {
         </div>
         {props.usersPage.users.map(u => <div>
             <div>
-                <NavLink to = {`profile/${u.id}`}>
+                <NavLink to={`profile/${u.id}`}>
                     <div className={Style.imageContainer}>
                         <img src={u.avatarURL} alt="img"/>
                     </div>
@@ -36,8 +37,23 @@ const Users = (props) => {
             </div>
             <div>{u.location.city}</div>
             <div>
-                {(u.isFollow) ? <button onClick={() => props.OnUnfollow(u.id)}>Unfollow</button> :
-                    <button onClick={() => props.OnFollow(u.id)}>Follow</button>}
+
+                {(u.isFollow) ? <button onClick={() => {
+                        debugger
+                        axios.delete(`http://localhost:3001/follow?id=${u.id}`)
+                            .then(response=>{
+                                debugger
+                                    if(response.data.id) props.OnUnfollow(u.id)
+                                })
+
+                    }}>Unfollow</button> :
+                    <button onClick={() => {
+                        axios.post(`http://localhost:3001/follow?id=${u.id}`)
+                            .then(response=>{
+                                debugger
+                                if(response.data.id) props.OnFollow(u.id)
+                            })
+                    }}>Follow</button>}
             </div>
         </div>)}
     </div>

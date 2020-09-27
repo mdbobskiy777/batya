@@ -6,9 +6,7 @@ import News from "./components/Documents/Documents";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import LoginContainer from "./components/Login/LoginContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import './app.css';
 
 
 const App = (props) => {

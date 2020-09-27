@@ -1,9 +1,8 @@
-.imageContainer img{
-    width: 100px;
+.userPhoto {
+     width: 100px;
+    height: 100px;
 }
-.currentPage{
+
+.selectedPage {
     font-weight: bold;
-}
-.numbers{
-    display: flex;
 }
