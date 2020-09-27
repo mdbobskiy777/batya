@@ -15,12 +15,12 @@ class ProfileContainer extends Component {
         let usersId = (this.props.match.params.userId)?this.props.match.params.userId:0;
         debugger
         axios
-            .get(`http://localhost:3001/profile?id=${usersId}`)
+            .get(`http://localhost:3001/profile`)
             .then(response => {
                 debugger
-                this.props.set_info(response.data.profile.info);
-                this.props.set_posts_list(response.data.profile.postsList);
-                this.props.set_new_post_text(response.data.profile.newPostText);
+                this.props.set_info(response.data.user.userPage.info);
+                this.props.set_posts_list(response.data.user.userPage.postsList);
+                this.props.set_new_post_text(response.data.user.userPage.newPostText);
             });
     }
 
