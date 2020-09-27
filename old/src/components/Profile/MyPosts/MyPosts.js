@@ -1,5 +1,5 @@
 import React from "react";
-import S from "./myPosts.module.css";
+import S from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import AddNewPostMenuContainer from "../AddNewPostMenuContainer";
 

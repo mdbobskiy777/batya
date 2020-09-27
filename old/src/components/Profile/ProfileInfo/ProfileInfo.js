@@ -1,5 +1,5 @@
 import React from "react";
-import S from "./profileInfo.module.css";
+import S from "./ProfileInfo.module.css";
 import PersonalInfo from "./personalInfo/personalInfo";
 
 const ProfileInfo = (props) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./users.module.css";
-import userPhoto from "../../assets/images/user.png";
+import userPhoto from "../../Assets/images/user.png";
 import {NavLink} from "react-router-dom";
 import * as axios from "axios";
 
@@ -43,7 +43,7 @@ let Users = (props) => {
                                     }
                                 })
                                     .then(response => {
-                                        if (response.data.resultCode == 0) {
+                                        if (response.data.resultCode === 0) {
                                             props.unfollow(u.id);
                                         }
                                     });
