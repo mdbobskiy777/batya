@@ -37,11 +37,11 @@ export const authAPI = {
     login({email, password, rememberMe}) {
         debugger
         return instance.post('auth/login', {email, password, rememberMe})
-            .then(responce => responce.data.resultCode)
+            .then(response => response.data)
     },
     logout() {
         return instance.delete('auth/login')
-            .then(responce => responce.data.resultCode)
+            .then(response => response.data.resultCode)
     }
 }
 export const profileAPI = {

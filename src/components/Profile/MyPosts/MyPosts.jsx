@@ -19,7 +19,7 @@ let AddNewPostForm = (props) => (
                   <form onSubmit={e => {
                       debugger
                       handleSubmit(e)
-                      form.reset()
+                      form.restart()
                   }
                   }>
                       <div>
