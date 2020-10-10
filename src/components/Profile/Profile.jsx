@@ -3,10 +3,12 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 const Profile = (props) => {
+    debugger
     return (
         <div>
-            <ProfileInfo profile={props.profile} />
-            <MyPostsContainer />
+            <ProfileInfo updateProfileStatus={props.updateProfileStatus} profile={props.profile}
+                         profileStatus={props.profileStatus}/>
+            <MyPostsContainer/>
         </div>
     )
 }

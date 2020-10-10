@@ -27,9 +27,33 @@ export const usersAPI = {
         return instance.get('auth/me/')
             .then(response => response.data);
     },
+
+}
+export const authAPI = {
+    auth() {
+        return instance.get('auth/me/')
+            .then(response => response.data);
+    },
+    login({email, password, rememberMe}) {
+        debugger
+        return instance.post('auth/login', {email, password, rememberMe})
+            .then(responce => responce.data.resultCode)
+    },
+    logout() {
+        return instance.delete('auth/login')
+            .then(responce => responce.data.resultCode)
+    }
+}
+export const profileAPI = {
     getProfile(userId) {
         return instance.get(`profile/` + userId)
             .then(response => response.data);
+    },
+    getStatus(userId) {
+        return instance.get('profile/status/' + userId).then(res => res.data)
+    },
+    updateStatus(status) {
+        return instance.put('/profile/status/', {status}).then(res => res.data.resultCode)
     }
 }
 

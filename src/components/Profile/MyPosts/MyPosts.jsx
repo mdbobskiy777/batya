@@ -1,36 +1,57 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import {Field, Form} from "react-final-form";
+import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
+import FormControlsCreator from "../../common/FormsControls/FormsControls";
 
+
+let Textarea = FormControlsCreator('textarea');
+let maxLength10 = maxLengthCreator(10);
+
+const composeValidators = (...validators) => value =>
+    validators.reduce((error, validator) => error || validator(value), undefined)
+let AddNewPostForm = (props) => (
+    <Form onSubmit={props.onSubmit} validate={() => {
+    }}
+          render={({handleSubmit, form}) => (
+              <div>
+                  <form onSubmit={e => {
+                      debugger
+                      handleSubmit(e)
+                      form.reset()
+                  }
+                  }>
+                      <div>
+                          <Field validate={composeValidators(requiredField, maxLength10)} name="newPostText"
+                                 component={Textarea} placeholder="Write new post"/>
+                      </div>
+                      <div>
+                          <button type={"Submit"}>Submit</button>
+                      </div>
+                  </form>
+              </div>
+
+          )}
+    />
+)
 const MyPosts = (props) => {
+    debugger
+    let onSubmit = obj => {
+        debugger
+        props.addPostActionCreator(obj.newPostText);
+    }
     let postsElements =
-        props.posts.map( p => <Post message={p.message} likesCount={p.likesCount}/>);
-
-    let newPostElement = React.createRef();
-
-    let onAddPost = () => {
-        props.addPost();
-    }
-
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text);
-    }
+        props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>);
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
-                <div>
-                    <textarea onChange={ onPostChange } ref={newPostElement}
-                              value={props.newPostText} />
-                </div>
-                <div>
-                    <button onClick={ onAddPost }>Add post</button>
-                </div>
+                <AddNewPostForm onSubmit={onSubmit}/>
             </div>
             <div className={s.posts}>
-                { postsElements }
+                {postsElements}
             </div>
         </div>
     )
