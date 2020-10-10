@@ -1,17 +1,21 @@
-import React from 'react';
+import React from "react";
+import {send_message, update_message_text, change_current_dialog} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import withLoginCheck from "../common/HOCs/withLoginCheck";
-import {compose} from "redux";
-import {sendMessage} from "../../redux/dialogs-reducer";
 
-let mapStateToProps = (state) => {
-    return {
-        dialogsPage: state.dialogsPage,
+let mapStateToProps = (state) => ({dialogsPage: state.dialogsPage});
+
+let mapDispatchToProps = (dispatch) => ({
+    sendMessage: (currentDialog) => {
+        dispatch(send_message(currentDialog));
+    },
+    newMessage: (text) => {
+        dispatch(update_message_text(text))
+    },
+    changeCurrentDialog:(dialogId) => {
+        dispatch(change_current_dialog(dialogId))
     }
-}
+})
 
-export default compose(
-    withLoginCheck,
-    connect(mapStateToProps, {sendMessage})
-)(Dialogs);
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+export default DialogsContainer;

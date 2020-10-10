@@ -1,0 +1,22 @@
+.messageBox {
+    padding: 5px;
+    text-align: right;
+    overflow:hidden;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.anotherAuthor {
+    justify-content: flex-start;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #e9ebee;
+}
+.anotherAuthorMessage{
+    background-color: lightblue;
+}

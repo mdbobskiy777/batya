@@ -1,36 +1,83 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
-const SEND_MESSAGE = 'SEND_MESSAGE';
+const SEND_MESSAGE = "SEND_MESSAGE";
+const UPDATE_MESSAGE_TEXT = "UPDATE_MESSAGE_TEXT";
+const CHANGE_DIALOG = "CHANGE_DIALOG";
 
-let initialState = {
-    dialogs: [
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Andrew'},
-        {id: 3, name: 'Sveta'},
-        {id: 4, name: 'Sasha'},
-        {id: 5, name: 'Viktor'},
-        {id: 6, name: 'Valera'}
+let initialStore = {
+    dialogsList: [
+        {
+            dialogName: "Жекич",
+            dialogId: 0,
+            avatarURL: "https://pickaface.net/gallery/avatar/unr_example_170227_1250_yq2lr.png",
+            messages: [
+                {author: "Me", text: "Hello"},
+                {author: "Me", text: "How are you?"},
+                {author: "Жекич", text: "I am fine"},
+                {author: "Me", text: "That`s good"},
+                {author: "Жекич", text: "Thanks"}]
+        },
+        {
+            dialogName: "Вилат",
+            dialogId: 1,
+            avatarURL: "https://pickaface.net/gallery/avatar/acrovin559439058dc7f.png",
+            messages: []
+        },
+        {
+            dialogName: "Валет",
+            dialogId: 2,
+            avatarURL: "https://qph.fs.quoracdn.net/main-qimg-8d945bbaf167b063040eca16b0c59cd8.webp",
+            messages: []
+        },
     ],
-    messages: [
-        {id: 1, message: 'Hi'},
-        {id: 2, message: 'How is your 322?'},
-        {id: 3, message: 'Yo'},
-        {id: 4, message: 'Yo'},
-        {id: 5, message: 'Yo'}
-    ],
-};
+    currentDialog: "prekol",
+    newMessageText: ""
+}
 
-const dialogsReducer = (state = initialState, action) => {
+
+export let send_message = (dialogNumber) => ({type: SEND_MESSAGE, dialogNumber: dialogNumber})
+export let update_message_text = (text) => ({type: UPDATE_MESSAGE_TEXT, text: text})
+export let change_current_dialog = (dialogNumber) => ({type:CHANGE_DIALOG,dialogNumber:dialogNumber})
+
+let changeCurrentDialog = (state, dialogNumber) => {
+    debugger
+    let newState = {...state}
+    if (!isNaN(dialogNumber)) {
+        newState.currentDialog = dialogNumber;
+    }else{
+        newState.currentDialog = 0;
+    }
+    return newState;
+}
+
+let sendMessage = (state, dialogNumber) => {
+    debugger
+/*
+    if (isNaN(dialogNumber)) dialogNumber = 0;
+*/
+
+    let newState = {...state};
+    newState.dialogsList[dialogNumber].messages = [...state.dialogsList[dialogNumber].messages];
+    newState.dialogsList[dialogNumber].messages.push(
+        {author: "Me", text: newState.newMessageText}
+    )
+    return updateMessageText(newState, "");
+
+}
+
+let updateMessageText = (state, text) => {return{...state,newMessageText :text };}
+
+ const dialogsReducer = (state = initialStore, action) => {
+
     switch (action.type) {
         case SEND_MESSAGE:
-            return {
-                ...state,
-                messages: [...state.messages, {id: 6, message: action.text}]
-            };
+            return sendMessage(state, action.dialogNumber);
+        case UPDATE_MESSAGE_TEXT:
+            return updateMessageText(state, action.text);
+        case CHANGE_DIALOG:
+            return changeCurrentDialog(state,action.dialogNumber)
         default:
             return state;
     }
+
+
 }
-
-export const sendMessage = (text) => ({type: SEND_MESSAGE, text})
-
-export default dialogsReducer;
+export default dialogsReducer

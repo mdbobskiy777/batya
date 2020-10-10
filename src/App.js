@@ -10,10 +10,11 @@ import Login from "./components/Login/Login";
 
 const App = () => {
     return (
-            <div className='app-wrapper'>
+            <div className='appWrapper'>
                 <HeaderContainer />
-                <Navbar />
-                <div className='app-wrapper-content'>
+                <div className='appWrapperContent'>
+                    <Route render={() => <Navbar/>}/>
+
                     <Route path='/dialogs'
                            render={ () => <DialogsContainer /> }/>
 
