@@ -1,5 +1,4 @@
 import {authAPI} from "../api/api";
-import {FORM_ERROR} from "final-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_SUBMIT_ERROR = "SET_SUBMIT_ERROR"
@@ -20,20 +19,23 @@ const authReducer = (state = initialState, action) => {
                 ...action.data,
             }
         case SET_SUBMIT_ERROR:
-        return {
-            ...state,
-            submitError:action.text
-        }
+            return {
+                ...state,
+                submitError: action.text
+            }
         default:
             return state;
     }
 }
 
 
-const setAuthUserData = (userId, email, login, isAuth, submitError) => ({type: SET_USER_DATA, data: {userId, email, login, isAuth, submitError}})
+const setAuthUserData = (userId, email, login, isAuth, submitError) => ({
+    type: SET_USER_DATA,
+    data: {userId, email, login, isAuth, submitError}
+})
 const setSubmitError = (text) => ({type: SET_SUBMIT_ERROR, text})
 export const setAuth = () => dispatch => {
-    authAPI.auth()
+    return  authAPI.auth()
         .then(data => {
             if (data.resultCode === 0) {
                 let {id, login, email} = data.data;

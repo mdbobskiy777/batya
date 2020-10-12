@@ -20,6 +20,8 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "reselector": "^0.17.0",
     "sax": "^1.2.4"
   },
   "scripts": {
