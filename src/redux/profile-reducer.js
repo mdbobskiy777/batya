@@ -31,8 +31,9 @@ const profileReducer = (state = initialState, action) => {
             ...state,posts:state.posts.filter(p=>p.id!==action.postId)
         }
         case ADD_POST: {
+            debugger
             let newPost = {
-                id: 5,
+                id: state.posts[state.posts.length-1].id+1,
                 message: action.text,
                 likesCount: 0
             };

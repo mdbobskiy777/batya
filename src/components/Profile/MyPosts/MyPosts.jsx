@@ -4,6 +4,7 @@ import Post from './Post/Post';
 import {Field, Form} from "react-final-form";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 import FormControlsCreator from "../../common/FormsControls/FormsControls";
+import {deletePost} from "../../../redux/profile-reducer";
 
 
 let Textarea = FormControlsCreator('textarea');
@@ -41,7 +42,9 @@ const MyPosts = (props) => {
         props.addPostActionCreator(obj.newPostText);
     }
     let postsElements =
-        props.posts.map((p,i) => <Post key = {i} message={p.message} likesCount={p.likesCount}/>);
+        props.posts.map((p,i) => <Post deletePost = {props.deletePost}
+                                       id = {p.id}
+                                       key = {i} message={p.message} likesCount={p.likesCount}/>);
 
     return (
         <div className={s.postsBlock}>

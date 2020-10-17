@@ -1,6 +1,11 @@
 .post {
   padding: 10px;
+  display: flex;
 }
 .post img {
   width: 50px;
+}
+.deletePost {
+  margin-left: 10px;
+  color: darkred;
 }
