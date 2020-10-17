@@ -11,7 +11,6 @@ let Input = FormControlsCreator('input')
 let Password = FormControlsCreator('input')
 
 const Login = (props) => {
-    let submitError = props.submitError
     debugger
     if (props.isAuth === true) return <Redirect to={'/profile'}/>
     return (

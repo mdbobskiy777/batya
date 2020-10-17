@@ -11,10 +11,10 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import {initializeApp} from "./redux/app-reducer";
+import ProfileContainerWithHooks from "./components/Profile/ProfileContainerWithHooks";
 
 class App extends React.Component {
     componentDidMount() {
-        debugger
         this.props.initializeApp();
     }
 
@@ -35,7 +35,7 @@ class App extends React.Component {
                            render={() => <Login/>}/>
 
                     <Route path='/profile/:userId?'
-                           render={() => <ProfileContainer/>}/>
+                           render={() => <ProfileContainerWithHooks/>}/>
 
                     <Route path='/users'
                            render={() => <UsersContainer/>}/>

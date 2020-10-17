@@ -17,7 +17,6 @@ let AddNewPostForm = (props) => (
           render={({handleSubmit, form}) => (
               <div>
                   <form onSubmit={e => {
-                      debugger
                       handleSubmit(e)
                       form.restart()
                   }
@@ -36,13 +35,13 @@ let AddNewPostForm = (props) => (
     />
 )
 const MyPosts = (props) => {
-    debugger
+
     let onSubmit = obj => {
-        debugger
+
         props.addPostActionCreator(obj.newPostText);
     }
     let postsElements =
-        props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>);
+        props.posts.map((p,i) => <Post key = {i} message={p.message} likesCount={p.likesCount}/>);
 
     return (
         <div className={s.postsBlock}>

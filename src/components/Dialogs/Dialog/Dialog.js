@@ -12,7 +12,7 @@ const Dialog = (props) => {
 
     return (
         <div onClick={onClickDialog} className={S.dialog}>
-            <img src={props.avatarURL}/>
+            <img  alt={"imaga"} src={props.avatarURL}/>
             <NavLink to={`/dialogs/${props.dialogId}`} activeClassName={S.active}>{props.dialogName}</NavLink>
         </div>
     );

@@ -7,7 +7,7 @@ let initialState = {
 };
 
 const appReducer = (state = initialState, action) => {
-    debugger
+
     switch (action.type) {
         case SET_INITIALIZED_SUCCESS:
             return {
@@ -22,7 +22,7 @@ const appReducer = (state = initialState, action) => {
 const initializedSuccess = () => ({type: SET_INITIALIZED_SUCCESS})
 
 export const initializeApp = () => dispatch => {
-debugger
+
     let promise = dispatch(setAuth())
     Promise.all([promise])
         .then(() => {
