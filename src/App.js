@@ -1,33 +1,57 @@
 import React from 'react';
-import {BrowserRouter, Route} from "react-router-dom";
+import './App.css';
+import Navbar from './components/Navbar/Navbar';
+import {Route, withRouter} from "react-router-dom";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import Preloader from "./components/common/Preloader/Preloader";
+import {initializeApp} from "./redux/app-reducer";
+import ProfileContainerWithHooks from "./components/Profile/ProfileContainerWithHooks";
 
-import Header from './components/Header/Header';
-import NavBar from './components/NavBar/NavBar';
-import Profile from './components/Profile/Profile';
-import Dialogs from "./components/Dialogs/Dialogs";
-import Music from "./components/Music/MusicBar";
-import News from "./components/Documents/Documents";
+class App extends React.Component {
+    componentDidMount() {
+        this.props.initializeApp();
+    }
 
-import './app.css';
+    render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
+        return (
+            <div className='appWrapper'>
+                <HeaderContainer/>
+                <div className='appWrapperContent'>
+                    <Route render={() => <Navbar/>}/>
+
+                    <Route path='/dialogs'
+                           render={() => <DialogsContainer/>}/>
+
+                    <Route path='/login'
+                           render={() => <Login/>}/>
+
+                    <Route path='/profile/:userId?'
+                           render={() => <ProfileContainerWithHooks/>}/>
+
+                    <Route path='/users'
+                           render={() => <UsersContainer/>}/>
 
 
-const App = (props) => {
-    return (
-        <div className='appWrapper'>
-            <Header/>
-            <div className={"appWrapperContent"}>
-                <NavBar/>
-                <Route path="/profile" render={() =>
-                    <Profile profilePage={props.state.profilePage}
-                             dispatch={props.dispatch}
-                    />}/>
-                <Route path="/dialogs" render={() => <Dialogs messagesPage={props.state.messagesPage}
-                                                              dispatch={props.dispatch}
-                />}/>
-                <Route path="/music" render={() => <Music/>}/>
-                <Route path="/news" render={() => <News/>}/>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
-export default App;
+
+let mapStateToProps = (state) => ({
+    initialized: state.app.initialized
+})
+
+export default compose(
+    connect(mapStateToProps, {initializeApp}),
+    withRouter
+)(App);

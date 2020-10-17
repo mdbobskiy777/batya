@@ -7,11 +7,22 @@ const checkAuthor = (author) => {
     } else return S.anotherAuthor;
 }
 
+const messageCheckAuthor = (author) => {
+    if (author === "Me") {
+        return 0;
+    } else return S.anotherAuthorMessage;
+}
+
 const Message = (props) => {
     return (
-        <div className={S.messageBox + " " + checkAuthor(props.message.author)}>
-            <div>{props.message.author}:</div>
-            <div> {props.message.text}</div>
+        <div >
+            <div className={S.messageBox + " " + checkAuthor(props.message.author)}>
+                <div className={S.message + " " + messageCheckAuthor(props.message.author)}>
+                    <div>{props.message.author}:</div>
+                    <div> {props.message.text}</div>
+                </div>
+
+            </div>
         </div>
     )
 }
