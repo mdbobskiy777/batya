@@ -4,20 +4,18 @@ import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
 import {acceptFollow, acceptUnfollow} from "../../redux/users-reducer";
 
-let Users = (props) => {
+let Users = props => {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
 
-
     return <div>
         <div>
             {pages.map((p,i) => {
-                return <span key  = {i} className={props.currentPage === p && styles.selectedPage}
+                return <span key  = {i} className={((props.currentPage === p) && styles.selectedPage).toString()}
                              onClick={(e) => {
                                  props.onPageChanged(p);
                              }}>{p}</span>

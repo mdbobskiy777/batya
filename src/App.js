@@ -4,14 +4,13 @@ import Navbar from './components/Navbar/Navbar';
 import {Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import {initializeApp} from "./redux/app-reducer";
-import ProfileContainerWithHooks from "./components/Profile/ProfileContainerWithHooks";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 class App extends React.Component {
     componentDidMount() {
@@ -35,12 +34,10 @@ class App extends React.Component {
                            render={() => <Login/>}/>
 
                     <Route path='/profile/:userId?'
-                           render={() => <ProfileContainerWithHooks/>}/>
+                           render={() => <ProfileContainer/>}/>
 
                     <Route path='/users'
                            render={() => <UsersContainer/>}/>
-
-
                 </div>
             </div>
         )

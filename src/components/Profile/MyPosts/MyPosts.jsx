@@ -4,15 +4,14 @@ import Post from './Post/Post';
 import {Field, Form} from "react-final-form";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 import FormControlsCreator from "../../common/FormsControls/FormsControls";
-import {deletePost} from "../../../redux/profile-reducer";
-
 
 let Textarea = FormControlsCreator('textarea');
 let maxLength10 = maxLengthCreator(10);
 
 const composeValidators = (...validators) => value =>
     validators.reduce((error, validator) => error || validator(value), undefined)
-let AddNewPostForm = (props) => (
+
+let AddNewPostForm = props => (
     <Form onSubmit={props.onSubmit} validate={() => {
     }}
           render={({handleSubmit, form}) => (
@@ -35,17 +34,13 @@ let AddNewPostForm = (props) => (
           )}
     />
 )
-const MyPosts = (props) => {
+const MyPosts = props => {
 
-    let onSubmit = obj => {
-
-        props.addPostActionCreator(obj.newPostText);
-    }
-    let postsElements =
-        props.posts.map((p,i) => <Post deletePost = {props.deletePost}
-                                       id = {p.id}
-                                       key = {i} message={p.message} likesCount={p.likesCount}/>);
-
+    let onSubmit = obj => props.addPostActionCreator(obj.newPostText)
+    let postsElements = props.posts.map((p, i) => <Post deletePost={props.deletePost}
+                                                        id={p.id}
+                                                        key={i} message={p.message}
+                                                        likesCount={p.likesCount}/>);
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
@@ -58,5 +53,4 @@ const MyPosts = (props) => {
         </div>
     )
 }
-
 export default MyPosts;

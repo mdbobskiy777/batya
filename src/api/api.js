@@ -1,6 +1,5 @@
 import * as axios from "axios";
 
-
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -35,7 +34,6 @@ export const authAPI = {
             .then(response => response.data);
     },
     login({email, password, rememberMe}) {
-        debugger
         return instance.post('auth/login', {email, password, rememberMe})
             .then(response => response.data)
     },

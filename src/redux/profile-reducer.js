@@ -1,9 +1,9 @@
 import {profileAPI} from "../api/api";
-const ADD_POST = 'ADD_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
-const DELETE_POST = 'DELETE_POST';
 
+const ADD_POST = 'profile-reducer/ADD_POST';
+const SET_USER_PROFILE = 'profile-reducer/SET_USER_PROFILE';
+const SET_PROFILE_STATUS = 'profile-reducer/SET_PROFILE_STATUS';
+const DELETE_POST = 'profile-reducer/DELETE_POST';
 
 let initialState = {
     posts: [
@@ -14,26 +14,17 @@ let initialState = {
     ],
     profile: null,
     profileStatus: "",
-/*
-    fake:10
-*/
-
 };
 
 const profileReducer = (state = initialState, action) => {
-
     switch (action.type) {
-/*
-        case "FAKE": return {...state, fake: state.fake + 1}
-*/
         case DELETE_POST:
-            return{
-            ...state,posts:state.posts.filter(p=>p.id!==action.postId)
-        }
+            return {
+                ...state, posts: state.posts.filter(p => p.id !== action.postId)
+            }
         case ADD_POST: {
-            debugger
             let newPost = {
-                id: state.posts[state.posts.length-1].id+1,
+                id: state.posts[state.posts.length - 1].id + 1,
                 message: action.text,
                 likesCount: 0
             };
@@ -54,31 +45,27 @@ const profileReducer = (state = initialState, action) => {
 }
 
 
-const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
-const setStatus = (status) => ({type: SET_PROFILE_STATUS, status})
+const setUserProfile = profile => ({type: SET_USER_PROFILE, profile})
+const setStatus = status => ({type: SET_PROFILE_STATUS, status})
 
-export const addPost = (text) => ({type: ADD_POST, text})
+export const addPost = text => ({type: ADD_POST, text})
 
-export const deletePost = (postId) => ({type: DELETE_POST, postId})
+export const deletePost = postId => ({type: DELETE_POST, postId})
 
-export const setProfile = (userId) => dispatch => {
+export const setProfile = userId => dispatch => {
     profileAPI.getProfile(userId).then(data => {
         dispatch(setUserProfile(data))
     })
-
 }
-
-export const getProfileStatus = (userId) => dispatch => {
+export const getProfileStatus = userId => dispatch => {
     profileAPI.getStatus(userId).then(data => {
-        if(data==="") data = "no data"
+        if (data === "") data = "no data"
         dispatch(setStatus(data))
     })
 }
-export const updateProfileStatus = (status) => dispatch => {
+export const updateProfileStatus = status => dispatch => {
     profileAPI.updateStatus(status).then(resultCode => {
         if (resultCode === 0) dispatch(setStatus(status))
     })
 }
-
-
 export default profileReducer;

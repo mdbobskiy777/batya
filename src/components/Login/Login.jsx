@@ -10,29 +10,24 @@ import s from "../common/FormsControls/formsControl.module.css"
 let Input = FormControlsCreator('input')
 let Password = FormControlsCreator('input')
 
-const Login = (props) => {
-    debugger
+const Login = props => {
     if (props.isAuth === true) return <Redirect to={'/profile'}/>
     return (
         <Form onSubmit={(form) => {
-            debugger
-            props.login({email: form.email,
+            props.login({
+                email: form.email,
                 password: form.password,
-                rememberMe: form.rememberMe});
-            debugger
+                rememberMe: form.rememberMe
+            });
         }}
-             /* validate={(submitError) => {
-                  if (submitError!==''){
-                      return submitError
-                  }else return undefined;
-              }}*/
-              render={({submitError = props.submitError,handleSubmit, form}) => (
+              render={({submitError = props.submitError, handleSubmit, form}) => (
                   <form onSubmit={handleSubmit}>
                       <div>
                           <Field validate={requiredField} name="email" component={Input} placeholder="login"/>
                       </div>
                       <div>
-                          <Field validate = {requiredField} name="password" component={Password} type={'password'} placeholder="password"/>
+                          <Field validate={requiredField} name="password"
+                                 component={Password} type={'password'} placeholder="password"/>
                       </div>
                       <div>
                           <Field name="rememberMe" component='input' type="checkbox"/>
@@ -40,15 +35,14 @@ const Login = (props) => {
                       <div>
                           <button type="Submit">Submit</button>
                       </div>
-                      {(submitError!=='')?<div className = {s.submitError} >{submitError}</div>:null}
+                      {(submitError !== '') ? <div className={s.submitError}>{submitError}</div> : null}
                   </form>
-
               )}
         >
         </Form>
     )
 }
-let mapStateToProps = (state) => ({
+let mapStateToProps = state => ({
     isAuth: state.auth.isAuth,
     submitError: state.auth.submitError
 

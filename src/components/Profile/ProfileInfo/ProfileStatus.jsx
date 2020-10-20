@@ -1,7 +1,6 @@
 import React from 'react'
 
-let ProfileStatus = (props) => {
-
+let ProfileStatus = props => {
     let [editMode, setEditMode] = React.useState(false)
     let [status, setStatus] = React.useState(props.status)
     React.useEffect(() => {
@@ -16,7 +15,7 @@ let ProfileStatus = (props) => {
         setEditMode(false)
         props.updateProfileStatus(status)
     }
-    let onInputChange = (e) => {
+    let onInputChange = e => {
         setStatus(e.currentTarget.value)
     }
 

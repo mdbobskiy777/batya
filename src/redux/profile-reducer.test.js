@@ -9,24 +9,24 @@ let state = {
         {id: 4, message: 'Dada', likesCount: 11}
     ],
 };
-it('length of posts should be incremented',()=>{
+it('length of posts should be incremented', () => {
 
     //2. action
 
-    let action =  addPost("hi everyone")
-    let newState = profileReducer(state,action)
+    let action = addPost("hi everyone")
+    let newState = profileReducer(state, action)
 
     //3. expectation
     expect(newState.posts.length).toBe(5)
 })
 
-it("post [4].message should be 'hi everyone'",()=>{
+it("post [4].message should be 'hi everyone'", () => {
     let action = addPost('hi everyone')
     let newState = profileReducer(state, action)
     expect(newState.posts[4].message).toBe('hi everyone')
 })
 
-it("after deleting length of [posts] should dectement",()=>{
+it("after deleting length of [posts] should dectement", () => {
 
     let action = deletePost(1);
 
@@ -35,7 +35,7 @@ it("after deleting length of [posts] should dectement",()=>{
     expect(newState.posts.length).toBe(3)
 })
 
-it("after deleting length shouldn`t be decremented if index is incorrect",()=> {
+it("after deleting length shouldn`t be decremented if index is incorrect", () => {
     let action = deletePost(100000)
 
     let newState = profileReducer(state, action)

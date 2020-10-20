@@ -11,16 +11,15 @@ import Preloader from "../common/Preloader/Preloader";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage,this.props.pageSize)
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber)
-        this.props.getUsers(pageNumber,this.props.pageSize)
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
-        //   totalUsersCount={this.props.totalUsersCount}
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users totalUsersCount={10}
@@ -36,7 +35,7 @@ class UsersContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = state => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
