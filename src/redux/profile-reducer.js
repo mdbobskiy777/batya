@@ -9,8 +9,8 @@ let initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCount: 12},
         {id: 2, message: 'joke', likesCount: 11},
-        {id: 3, message: 'Blabla', likesCount: 11},
-        {id: 4, message: 'Dada', likesCount: 11}
+        {id: 3, message: '228', likesCount: 11},
+        {id: 4, message: '322', likesCount: 11}
     ],
     profile: null,
     profileStatus: "",
@@ -52,20 +52,17 @@ export const addPost = text => ({type: ADD_POST, text})
 
 export const deletePost = postId => ({type: DELETE_POST, postId})
 
-export const setProfile = userId => dispatch => {
-    profileAPI.getProfile(userId).then(data => {
-        dispatch(setUserProfile(data))
-    })
+export const setProfile = userId => async dispatch => {
+    let data = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(data))
 }
-export const getProfileStatus = userId => dispatch => {
-    profileAPI.getStatus(userId).then(data => {
-        if (data === "") data = "no data"
-        dispatch(setStatus(data))
-    })
+export const getProfileStatus = userId => async dispatch => {
+    let data = await profileAPI.getStatus(userId)
+    if (!data) data = "no data"
+    dispatch(setStatus(data))
 }
-export const updateProfileStatus = status => dispatch => {
-    profileAPI.updateStatus(status).then(resultCode => {
-        if (resultCode === 0) dispatch(setStatus(status))
-    })
+export const updateProfileStatus = status => async dispatch => {
+    let resultCode = await profileAPI.updateStatus(status)
+    if (resultCode === 0) dispatch(setStatus(status))
 }
 export default profileReducer;
