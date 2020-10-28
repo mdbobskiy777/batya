@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "express-session": "^1.17.1"
+    "express-session": "^1.17.1",
+    "react-test-renderer": "^16.13.1"
   }
 }

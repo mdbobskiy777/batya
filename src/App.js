@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {lazy} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import {initializeApp} from "./redux/app-reducer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+
+const Login = lazy(() => import('./components/Login/Login'))
+const UsersContainer = lazy(() => import("./components/Users/UsersContainer"))
+const ProfileContainer = lazy(() => import("./components/Profile/ProfileContainer"));
 
 class App extends React.Component {
     componentDidMount() {

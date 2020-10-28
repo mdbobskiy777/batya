@@ -1,5 +1,5 @@
 import store from "./redux/redux-store";
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -9,7 +9,9 @@ import {Provider} from "react-redux";
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App/>
+            <Suspense fallback={<div>loading...</div>}>
+                <App/>
+            </Suspense>
         </Provider>
     </BrowserRouter>, document.getElementById('root'));
 

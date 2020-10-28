@@ -1,6 +1,6 @@
 import React from 'react';
 import {acceptFollow, acceptUnfollow} from "../../redux/users-reducer";
-import Pagination from "./Pagination";
+import Pagination from "../common/Pagination/Pagination";
 import User from "./User/User";
 
 let Users = props => {
@@ -11,14 +11,14 @@ let Users = props => {
     }
 
     return <div>
-        <Pagination totalUsersCount={props.totalUsersCount}
+        <Pagination totalItemsCount={props.totalUsersCount}
                     pageSize={props.pageSize}
                     currentPage={props.currentPage}
                     onPageChanged={props.onPageChanged}
         />
             {
                 props.users.map((u, i) => <User key={i} followingInProgress={props.followingInProgress}
-                                                u={u} follow={props.fololow} unfollow={props.unfollow}
+                                                u={u} follow={props.follow} unfollow={props.unfollow}
                 />)
             }
     </div>
