@@ -11,13 +11,15 @@ let Input = FormControlsCreator('input')
 let Password = FormControlsCreator('input')
 
 const Login = props => {
+    debugger
     if (props.isAuth === true) return <Redirect to={'/profile'}/>
     return (
         <Form onSubmit={(form) => {
             props.login({
                 email: form.email,
                 password: form.password,
-                rememberMe: form.rememberMe
+                rememberMe: form.rememberMe,
+                captcha: form.captcha
             });
         }}
               render={({submitError = props.submitError, handleSubmit, form}) => (
@@ -35,6 +37,13 @@ const Login = props => {
                       <div>
                           <button type="Submit">Submit</button>
                       </div>
+                      {props.captchaURL && <div>
+                          <img src={props.captchaURL}/>
+                          <div>
+                              <Field validate={requiredField} name="captcha" component={Input}
+                                     placeholder="captcha text"/>
+                          </div>
+                      </div>}
                       {(submitError !== '') ? <div className={s.submitError}>{submitError}</div> : null}
                   </form>
               )}
@@ -44,7 +53,8 @@ const Login = props => {
 }
 let mapStateToProps = state => ({
     isAuth: state.auth.isAuth,
-    submitError: state.auth.submitError
+    submitError: state.auth.submitError,
+    captchaURL: state.auth.captchaURL
 
 })
 export default connect(mapStateToProps, {login})(Login)

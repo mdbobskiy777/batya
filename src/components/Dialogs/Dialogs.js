@@ -24,7 +24,6 @@ const Dialogs = (props) => {
     }
     let onChangeDialog = dialogID => props.changeCurrentDialog(dialogID)
     let showMessages = dialogID => {
-        debugger
         let messages
         if (isNaN(dialogID)) {
             return <div>no dialog chosen</div>

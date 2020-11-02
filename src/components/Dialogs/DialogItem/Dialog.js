@@ -9,9 +9,6 @@ const Dialog = props => {
     return <div onClick={onClickDialog} className={S.dialog}>
         <img alt={"imaga"} src={props.avatarURL}/>
         <NavLink to={`/dialogs/${props.dialogId}`}
-                 onBlur = {()=>{
-                     props.changeDialog("dialogFromBlur")
-                 }}
                  className={(props.dialogId === props.currentDialog) ? S.active : " "}>
             {props.dialogName}
         </NavLink>
