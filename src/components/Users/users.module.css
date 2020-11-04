@@ -6,3 +6,12 @@
 .selectedPage {
     font-weight: bold;
 }
+.pagesItems {
+    padding: 2px;
+    background-color: ghostwhite;
+    width: 100px;
+    border: 1px solid gray;
+}
+.permanentButtons {
+    background-color: lightgray;
+}

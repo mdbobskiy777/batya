@@ -1,44 +1,60 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {getProfileStatus, setProfile, updateProfileStatus} from "../../redux/profile-reducer";
+import {
+    getProfileStatus,
+    savePhoto,
+    saveProfile,
+    setProfile,
+    updateProfileStatus,
+    setEditMode
+} from "../../redux/profile-reducer";
 import withLoginCheck from "../common/HOCs/withLoginCheck";
 import {compose} from "redux";
 
-class ProfileContainer extends React.Component {
-    componentDidMount() {
-        let userId = this.props.match.params.userId;
+let ProfileContainer = props => {
+    useEffect(() => {
+        let userId = props.match.params.userId;
         if (!userId) {
-            userId = this.props.authorizedUserId;
-            if(!userId){
-                this.props.history.push('/login')
+            userId = props.authorizedUserId;
+            if (!userId) {
+                props.history.push('/login')
             }
         }
-        this.props.setProfile(userId)
-        this.props.getProfileStatus(userId)
-    }
+        props.setProfile(userId)
+        props.getProfileStatus(userId)
+    }, [props.match.params.userId])
 
-    render() {
-        debugger
+    return (
+        <Profile {...props} profile={props.profile}
+                 profileStatus={props.profileStatus}
+                 updateProfileStatus={props.updateProfileStatus}
+                 isOwner={!props.match.params.userId}
+                 savePhoto={props.savePhoto}
+                 saveProfile={props.saveProfile}
+                 submitErrorProf={props.submitErrorProf}
+                 editMode={props.editMode}
+                 setEditMode={props.setEditMode}
 
-        return (
-            <Profile {...this.props} profile={this.props.profile}
-                     profileStatus={this.props.profileStatus}
-                     updateProfileStatus={this.props.updateProfileStatus}
-            />
-        )
-    }
+        />
+    )
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = state => ({
     profile: state.profilePage.profile,
     profileStatus: state.profilePage.profileStatus,
-    authorizedUserId:state.auth.userId
+    authorizedUserId: state.auth.userId,
+    submitErrorProf: state.profilePage.submitErrorProf,
+    editMode: state.profilePage.editMode,
 });
 
+
 export default compose(
-    connect(mapStateToProps, {setProfile, getProfileStatus, updateProfileStatus}),
+    connect(mapStateToProps, {
+        setProfile, getProfileStatus,
+        updateProfileStatus, savePhoto, saveProfile, setEditMode
+    }),
     withLoginCheck,
     withRouter
 )(ProfileContainer)

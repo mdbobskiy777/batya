@@ -1,7 +1,7 @@
 import React from 'react'
+import Style from "./profileStatus.module.css"
 
-let ProfileStatus = (props) => {
-
+let ProfileStatus = props => {
     let [editMode, setEditMode] = React.useState(false)
     let [status, setStatus] = React.useState(props.status)
     React.useEffect(() => {
@@ -16,15 +16,15 @@ let ProfileStatus = (props) => {
         setEditMode(false)
         props.updateProfileStatus(status)
     }
-    let onInputChange = (e) => {
+    let onInputChange = e => {
         setStatus(e.currentTarget.value)
     }
 
     return (
-        <div>
+        <div className={Style.statusContentContainer}>
             {(editMode) ?
                 <input onChange={onInputChange} autoFocus={true} value={status} onBlur={deactivateEditMode}/>
-                : <span onDoubleClick={activateEditMode}>{props.status}</span>
+                : <span className = {Style.statusContent} onDoubleClick={activateEditMode}>{props.status}</span>
             }
         </div>
     )
