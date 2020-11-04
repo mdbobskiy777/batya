@@ -14,7 +14,6 @@ import withLoginCheck from "../common/HOCs/withLoginCheck";
 import {compose} from "redux";
 
 let ProfileContainer = props => {
-
     useEffect(() => {
         let userId = props.match.params.userId;
         if (!userId) {

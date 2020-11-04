@@ -49,14 +49,12 @@ const profileReducer = (state = initialState, action) => {
             return {...state, profile: {...state.profile, photos: action.photos}}
         }
         case SAVE_PROFILE_INFO: {
-            debugger
             return {...state, profile: {...state.profile, ...action.profileData},
                     submitErrorProf: "",
                 editMode:false
             }
         }
         case SET_SUBMIT_ERROR:
-            debugger
             return {
                 ...state,
                 submitErrorProf: action.text,

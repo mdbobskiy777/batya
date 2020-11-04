@@ -45,6 +45,7 @@ const getCaptchaURLSuccess = (url) => ({
     url
 })
 const setSubmitError = (text) => ({type: SET_SUBMIT_ERROR, text})
+
 export const setAuth = () => async dispatch => {
     let data = await authAPI.auth()
     if (data.resultCode === 0) {
@@ -64,7 +65,6 @@ export const login = ({email, password, rememberMe,captcha}) => async dispatch =
     }
 }
 export const getCaptchaURL = () => async dispatch => {
-    debugger
     let response = await securityAPI.getCaptchaURL()
     const captchaURL = response.url
     dispatch(getCaptchaURLSuccess(captchaURL))

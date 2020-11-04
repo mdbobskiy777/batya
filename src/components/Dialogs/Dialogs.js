@@ -4,16 +4,20 @@ import Dialog from "./DialogItem/Dialog";
 import Message from "./Message/Message";
 
 const Dialogs = (props) => {
-    let currentDialogToNull = useEffect(
+    let currentDialogChosen = useEffect(
         () => {
-            return () => {
-                props.changeCurrentDialog("dialogID")
-            }
-        }, []
+            let number = props.location.pathname.substr(-1)
+            props.changeCurrentDialog(number)
+        }, [props.location.pathname]
     )
     const showDialogsList = (dialogsList) => {
+        let currentNumber = props.location.pathname.substr(-1)
+        debugger
         return (
-            dialogsList.map((dialog, i) => <Dialog key={i} changeDialog={onChangeDialog}
+
+            dialogsList.map((dialog, i) => <Dialog key={i} changeDialog={(dialog) => {
+                    props.changeCurrentDialog(dialog)
+                }}
                                                    dialogName={dialog.dialogName}
                                                    dialogId={dialog.dialogId}
                                                    avatarURL={dialog.avatarURL}
@@ -22,7 +26,6 @@ const Dialogs = (props) => {
             )
         )
     }
-    let onChangeDialog = dialogID => props.changeCurrentDialog(dialogID)
     let showMessages = dialogID => {
         let messages
         if (isNaN(dialogID)) {

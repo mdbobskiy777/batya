@@ -19,7 +19,6 @@ const ProfileInfo = ({
     let onSubmit = (formData) => {
         saveProfile(formData)
     }
-    debugger
     return (
         <div>
             <div className={s.descriptionBlock}>

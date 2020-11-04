@@ -14,7 +14,6 @@ let Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, portio
     let rightPortionNumber = portionNumber * portionSize
 
     let setCurrentElementInPortion = portion => {
-        debugger
         return portion * portionSize - (portionSize - 1)
     }
 

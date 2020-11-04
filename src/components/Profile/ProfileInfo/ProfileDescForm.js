@@ -4,7 +4,6 @@ import s from "./ProfileInfo.module.css";
 import React from "react";
 
 let ProfileDescForm = ({profile, onSubmit, submitErrorProf}) => {
-    debugger
     let editContacts = (profile) => {
         let contacts = {...profile.contacts}
         return Object.keys(contacts).map((e, i) => <div key={i}>
@@ -16,7 +15,6 @@ let ProfileDescForm = ({profile, onSubmit, submitErrorProf}) => {
         <Form initialValues={{
             ...profile
         }} onSubmit={(form) => {
-            debugger
             onSubmit(form)
         }}
               render={({submitError = submitErrorProf, handleSubmit, form}) => (

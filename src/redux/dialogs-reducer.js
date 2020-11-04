@@ -37,11 +37,6 @@ export let change_current_dialog = dialogNumber => ({type: CHANGE_DIALOG, dialog
 
 let changeCurrentDialog = (state, dialogNumber) => {
     return {...state, currentDialog:dialogNumber}
-    /*if (!isNaN(dialogNumber)) {
-        newState.currentDialog = dialogNumber;
-    } else {
-        newState.currentDialog = 0;
-    }*/
 }
 
 let sendMessage = (state, dialogNumber) => {
