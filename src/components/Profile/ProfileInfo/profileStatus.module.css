@@ -1,0 +1,7 @@
+.statusContentContainer{
+    margin: 5px;
+}
+.statusContent{
+    border: 2px solid black;
+    padding: 0 5px 0 5px;
+}

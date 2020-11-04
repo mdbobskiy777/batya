@@ -1,4 +1,5 @@
 import React from 'react'
+import Style from "./profileStatus.module.css"
 
 let ProfileStatus = props => {
     let [editMode, setEditMode] = React.useState(false)
@@ -20,10 +21,10 @@ let ProfileStatus = props => {
     }
 
     return (
-        <div>
+        <div className={Style.statusContentContainer}>
             {(editMode) ?
                 <input onChange={onInputChange} autoFocus={true} value={status} onBlur={deactivateEditMode}/>
-                : <span onDoubleClick={activateEditMode}>{props.status}</span>
+                : <span className = {Style.statusContent} onDoubleClick={activateEditMode}>{props.status}</span>
             }
         </div>
     )
