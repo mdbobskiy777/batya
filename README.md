@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -67,3 +68,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 "# social_network" 
+=======
+This is educational project from course "React: way of Samurai" on YouTube ( ͡° ͜ʖ ͡°).  
+It is my first "big" project in React, using a lot of features.  
+It will not work, if you have not account in https://social-network.samuraijs.com/  
+Also you need added your token ( web key) and id frow samurai.js API  
+>>>>>>> Stashed changes
