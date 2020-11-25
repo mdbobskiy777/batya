@@ -28,18 +28,51 @@ let initialStore = {
             messages: []
         },
     ],
-    currentDialog: "dialog",
+    currentDialog: 0,
     newMessageText: ""
 }
-export let send_message = dialogNumber => ({type: SEND_MESSAGE, dialogNumber: dialogNumber})
-export let update_message_text = text => ({type: UPDATE_MESSAGE_TEXT, text: text})
-export let change_current_dialog = dialogNumber => ({type: CHANGE_DIALOG, dialogNumber: dialogNumber})
 
-let changeCurrentDialog = (state, dialogNumber) => {
-    return {...state, currentDialog:dialogNumber}
+type InitialStateType = typeof initialStore
+
+type SendMessageActionType = {
+    type: typeof SEND_MESSAGE
+    dialogNumber: number
 }
 
-let sendMessage = (state, dialogNumber) => {
+type UpdateMessageTextActionType = {
+    type: typeof UPDATE_MESSAGE_TEXT
+    text: string
+}
+
+type ChangeCurrentDialogActionType = {
+    type: typeof CHANGE_DIALOG
+    dialogNumber: number
+}
+
+type ChangeCurrentDialogType = (state: InitialStateType, dialogNumber: number) => InitialStateType
+
+
+export let send_message = (dialogNumber: number): SendMessageActionType => ({
+    type: SEND_MESSAGE,
+    dialogNumber: dialogNumber
+})
+
+export let update_message_text = (text: string): UpdateMessageTextActionType => ({
+    type: UPDATE_MESSAGE_TEXT,
+    text: text
+})
+
+export let change_current_dialog = (dialogNumber: number): ChangeCurrentDialogActionType => ({
+    type: CHANGE_DIALOG,
+    dialogNumber: dialogNumber
+})
+
+
+let changeCurrentDialog: ChangeCurrentDialogType = (state, dialogNumber) => {
+    return {...state, currentDialog: dialogNumber}
+}
+
+let sendMessage = (state: InitialStateType, dialogNumber: number): InitialStateType => {
     let newState = {...state};
     newState.dialogsList[dialogNumber].messages = [...state.dialogsList[dialogNumber].messages];
     newState.dialogsList[dialogNumber].messages.push(
@@ -48,11 +81,12 @@ let sendMessage = (state, dialogNumber) => {
     return updateMessageText(newState, "");
 }
 
-let updateMessageText = (state, text) => {
+let updateMessageText = (state: InitialStateType, text: string): InitialStateType => {
     return {...state, newMessageText: text};
 }
 
-const dialogsReducer = (state = initialStore, action) => {
+// @ts-ignore
+const dialogsReducer = (state = initialStore, action): InitialStateType => {
     switch (action.type) {
         case SEND_MESSAGE:
             return sendMessage(state, action.dialogNumber);
