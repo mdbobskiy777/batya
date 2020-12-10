@@ -1,19 +1,29 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import styles from "../../Users/users.module.css";
 
-let Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
-
-    let pagesCount = Math.ceil(totalItemsCount / pageSize);
-    let pages = [];
+type PropsType = {
+    totalItemsCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (currentElementInPortion: number) => void
+    portionSize?: number
+}
+let Pagination: FC<PropsType> = ({totalItemsCount,
+                                     pageSize,
+                                     currentPage,
+                                     onPageChanged,
+                                     portionSize = 10}) => {
+    let pagesCount:number = Math.ceil(totalItemsCount / pageSize);
+    let pages: number [] = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    let portionCount = Math.ceil(pagesCount / portionSize)
+    let portionCount: number = Math.ceil(pagesCount / portionSize)
     let [portionNumber, setPortionNumber] = useState(1)
-    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
-    let rightPortionNumber = portionNumber * portionSize
+    let leftPortionPageNumber:number = (portionNumber - 1) * portionSize + 1
+    let rightPortionNumber: number = portionNumber * portionSize
 
-    let setCurrentElementInPortion = portion => {
+    let setCurrentElementInPortion = (portion:number): number => {
         return portion * portionSize - (portionSize - 1)
     }
 
@@ -25,7 +35,7 @@ let Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, portio
         </button>
         {portionNumber > 1 && <button onClick={() => {
             setPortionNumber(portionNumber - 1)
-            onPageChanged(setCurrentElementInPortion(portionNumber-1))
+            onPageChanged(setCurrentElementInPortion(portionNumber - 1))
         }}>PREV</button>}
         {pages
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionNumber)
@@ -38,7 +48,7 @@ let Pagination = ({totalItemsCount, pageSize, currentPage, onPageChanged, portio
             })}
         {portionNumber < portionCount && <button onClick={() => {
             setPortionNumber(portionNumber + 1)
-            onPageChanged(setCurrentElementInPortion(portionNumber+1))
+            onPageChanged(setCurrentElementInPortion(portionNumber + 1))
         }}>NEXT</button>}
         <button className={styles.permanentButtons} onClick={() => {
             setPortionNumber(portionCount)

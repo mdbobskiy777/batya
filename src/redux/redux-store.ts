@@ -16,6 +16,8 @@ let rootReducer = combineReducers({
     app: appReducer
 })
 
+type ReducerType = typeof rootReducer;
+export type AppStoreType = ReturnType<ReducerType>
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

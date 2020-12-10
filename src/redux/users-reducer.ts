@@ -1,6 +1,7 @@
-import {usersAPI} from "../api/api"
+import {DeleteFollowType, PostFollowType, usersAPI} from "../api/api"
 import {updateObjectInArray} from "../utils/object-helpers"
 import {PhotosType} from "./profile-reducer";
+import {Dispatch} from "redux";
 
 const FOLLOW = 'users-reducer/FOLLOW'
 const UNFOLLOW = 'users-reducer/UNFOLLOW'
@@ -10,7 +11,7 @@ const SET_TOTAL_USERS_COUNT = 'users-reducer/SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'users-reducer/TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS'
 
-type UserType = {
+export type UserType = {
     name: string
     id: number
     uniqueUrlName: null | string
@@ -102,8 +103,10 @@ const usersReducer = (state = initialState, action: any): InitialStateType => {
 }
 
 const acceptFollow = (userId: number): AcceptFollowActionType => ({type: FOLLOW, userId})
+type AcceptFollowType = typeof acceptFollow
 
 const acceptUnfollow = (userId: number): AcceptUnfollowActionType => ({type: UNFOLLOW, userId})
+type AcceptUnfollowType = typeof acceptUnfollow
 
 const toggleFollowingProgress = (isFetching: boolean, id: number): ToggleFollowProgressActionType =>
     ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id})
@@ -116,16 +119,21 @@ export const setTotalUsersCount = (totalUsersCount: number): SetTotalUserCount =
 })
 export const toggleIsFetching = (isFetching: boolean): ToggleIsFetching => ({type: TOGGLE_IS_FETCHING, isFetching})
 
-// @ts-ignore
-export const getUsers = (currentPage, pageSize) => async dispatch => {
+export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: (arg0: { type: "users-reducer/TOGGLE_IS_FETCHING" | "users-reducer/SET_USERS" | "users-reducer/SET_TOTAL_USERS_COUNT"; isFetching?: boolean; users?: UserType[]; count?: number; }) => void) => {
     dispatch(toggleIsFetching(true));
     let data = await usersAPI.getUsers(currentPage, pageSize)
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(data.items));
     dispatch(setTotalUsersCount(data.totalCount));
 }
-// @ts-ignore
-export const followUnfollowFlow = async (dispatch, id, apiMethod, actionCreator) => {
+export const followUnfollowFlow = async (dispatch: Dispatch<AcceptFollowActionType |
+                                             AcceptUnfollowActionType |
+                                             ToggleFollowProgressActionType>,
+                                         id: number,
+                                         apiMethod: PostFollowType | DeleteFollowType,
+                                         actionCreator: AcceptFollowType |
+                                             AcceptUnfollowType) => {
+
     dispatch(toggleFollowingProgress(true, id))
     let data = await apiMethod(id)
     if (data.resultCode === 0) {
@@ -133,12 +141,14 @@ export const followUnfollowFlow = async (dispatch, id, apiMethod, actionCreator)
     }
     dispatch(toggleFollowingProgress(false, id))
 }
-// @ts-ignore
-export const follow = id => async dispatch => {
+export const follow = (id: number) => async (dispatch: Dispatch<AcceptFollowActionType |
+    AcceptUnfollowActionType |
+    ToggleFollowProgressActionType>) => {
     await followUnfollowFlow(dispatch, id, usersAPI.postFollow.bind(usersAPI), acceptFollow)
 }
-// @ts-ignore
-export const unfollow = id => async dispatch => {
+export const unfollow = (id: number) => async (dispatch: Dispatch<AcceptFollowActionType |
+    AcceptUnfollowActionType |
+    ToggleFollowProgressActionType>) => {
     await followUnfollowFlow(dispatch, id, usersAPI.deleteFollow.bind(usersAPI), acceptUnfollow)
 }
 export default usersReducer;

@@ -1,4 +1,6 @@
-import {profileAPI} from "../api/api";
+import {profileAPI, profileAPIProfileType} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {AppStoreType} from "./redux-store";
 
 const ADD_POST = 'profile-reducer/ADD_POST';
 const SET_USER_PROFILE = 'profile-reducer/SET_USER_PROFILE';
@@ -24,7 +26,7 @@ export type PhotosType = {
     small: string
     large: string
 }
-type ProfileType = {
+export type ProfileType = {
     aboutMe?: string
     contacts?: ContactsType
     lookingForAJob?: boolean
@@ -89,8 +91,7 @@ let initialState: InitialStateType = {
     submitErrorProf: "",
     editMode: false
 }
-
-const profileReducer = (state = initialState, action: any):InitialStateType => {
+const profileReducer = (state = initialState, action: ActionsTypes):InitialStateType => {
     switch (action.type) {
         case DELETE_POST:
             return {
@@ -158,37 +159,40 @@ const setSubmitError = (text: string): SetSubmitErrorActionType => ({type: SET_S
 
 export const setEditMode = (): SetEditModeActionType => ({type: SET_EDIT_MODE})
 
-// @ts-ignore
-export const setProfile = userId => async dispatch => {
+type ActionsTypes  = SetUserProfileActionType | SetStatusActionType | AddPostActionType | DeletePostActionType
+| SavePhotoSuccessActionType | SaveProfileSuccessActionType | SetSubmitErrorActionType | SetEditModeActionType
+
+export const setProfile = (userId: number) : ThunkAction<Promise<void>, AppStoreType, undefined, ActionsTypes> =>
+    async (dispatch) => {
     let data = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(data))
 }
 
-// @ts-ignore
-export const getProfileStatus = userId => async dispatch => {
+export const getProfileStatus = (userId:number): ThunkAction<Promise<void>, AppStoreType, undefined, ActionsTypes> =>
+    async dispatch => {
     let data = await profileAPI.getStatus(userId)
     if (!data) data = "no data"
     dispatch(setStatus(data))
 }
 
-// @ts-ignore
-export const updateProfileStatus = status => async dispatch => {
+export const updateProfileStatus = (status:string) : ThunkAction<Promise<void>, AppStoreType, undefined, ActionsTypes> =>
+    async dispatch => {
     let resultCode = await profileAPI.updateStatus(status)
     if (resultCode === 0) dispatch(setStatus(status))
 }
 
-// @ts-ignore
-export const savePhoto = file => async dispatch => {
+export const savePhoto = (file:any) : ThunkAction<Promise<void>, AppStoreType, undefined, ActionsTypes> =>
+    async dispatch => {
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) dispatch(savePhotoSuccess(response.data.data.photos))
 }
 
-// @ts-ignore
-export const saveProfile = profileData => async dispatch => {
-    let response = await profileAPI.saveProfile(profileData)
-    if (response.data.resultCode === 0) dispatch(saveProfileSuccess(profileData))
-    else dispatch(setSubmitError(response.data.messages[0]))
-    return response
+export const saveProfile = (profileData: ProfileType) : ThunkAction<Promise<profileAPIProfileType>, AppStoreType, undefined, ActionsTypes> =>
+    async (dispatch) => {
+    let data = await profileAPI.saveProfile(profileData)
+    if (data.resultCode === 0) dispatch(saveProfileSuccess(profileData))
+    else dispatch(setSubmitError(data.messages[0]))
+    return data
 }
 
 export default profileReducer;
