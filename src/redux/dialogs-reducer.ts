@@ -32,7 +32,7 @@ let initialStore = {
     newMessageText: ""
 }
 
-type InitialStateType = typeof initialStore
+export type InitialStateType = typeof initialStore
 
 type SendMessageActionType = {
     type: typeof SEND_MESSAGE
@@ -71,7 +71,7 @@ export let change_current_dialog = (dialogNumber: number): ChangeCurrentDialogAc
 let changeCurrentDialog: ChangeCurrentDialogType = (state, dialogNumber) => {
     return {...state, currentDialog: dialogNumber}
 }
-
+let ChangeCurrentDialogType = typeof change_current_dialog
 let sendMessage = (state: InitialStateType, dialogNumber: number): InitialStateType => {
     let newState = {...state};
     newState.dialogsList[dialogNumber].messages = [...state.dialogsList[dialogNumber].messages];
@@ -80,13 +80,15 @@ let sendMessage = (state: InitialStateType, dialogNumber: number): InitialStateT
     )
     return updateMessageText(newState, "");
 }
+type SendMessageType =  typeof send_message
 
 let updateMessageText = (state: InitialStateType, text: string): InitialStateType => {
     return {...state, newMessageText: text};
 }
+type UpdateMessageTextType = typeof update_message_text
 
-// @ts-ignore
-const dialogsReducer = (state = initialStore, action): InitialStateType => {
+type ActionsTypes = SendMessageActionType | UpdateMessageTextActionType | ChangeCurrentDialogActionType
+const dialogsReducer = (state = initialStore, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case SEND_MESSAGE:
             return sendMessage(state, action.dialogNumber);
