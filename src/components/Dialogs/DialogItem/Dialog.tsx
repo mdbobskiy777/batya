@@ -9,6 +9,7 @@ type PropsType = {
     avatarURL: string
     dialogName: string
 }
+
 const Dialog: FC<PropsType> = ({
                                    changeDialog,
                                    dialogId,
